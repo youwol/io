@@ -1,0 +1,22 @@
+{
+    "groups": [
+        {
+            "title": "Info",
+            "pages": [
+                {
+                    "title": "Description",
+                    "source": "./documentation/description.md"
+                }
+            ]
+        },
+        {
+            "title": "Examples",
+            "pages": [
+                {
+                    "title": "Decode a gocad TS file",
+                    "source": "./documentation/example1.md"
+                }
+            ]
+        }
+    ]
+}
