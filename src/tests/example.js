@@ -1,5 +1,5 @@
 const io =require('../../dist/@youwol/io')
-const df =require('../../../dataframe/dist/@youwol/dataframe')
+const df =require('@youwol/dataframe')
 
 const bufferTs =
 `GOCAD TSurf 1

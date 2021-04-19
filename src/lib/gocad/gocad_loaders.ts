@@ -1,4 +1,4 @@
-import { DataFrame, IArray, createSerie, createTyped } from '../../../../dataframe/src/lib'
+import { DataFrame, IArray, createSerie, createTyped } from '@youwol/dataframe'
 
 /**
  * Create a Gocad Pointset (DataFrame) from a string buffer
@@ -118,7 +118,8 @@ function loadGocadObject(
         if (r[0] === SEP) {
             // new object
             const object = createObject({
-                positions, indices, attrNames, attributes, itemSize: dimension, shared
+                positions, indices, attrNames, attributes, 
+                itemSize: dimension, shared, name, className, extension
             })
             if (object) objects.push( object )
 
@@ -132,7 +133,8 @@ function loadGocadObject(
 
         if (r[0] === 'GOCAD') {
             const object = createObject({
-                positions, indices, attrNames, attributes, itemSize: dimension, shared
+                positions, indices, attrNames, attributes, itemSize: dimension,
+                shared, name, className, extension
             })
             if (object) objects.push( object )
             
@@ -180,7 +182,8 @@ function loadGocadObject(
 
     // Finish the last object if any
     const object = createObject({
-        positions, indices, attrNames, attributes, itemSize: dimension, shared
+        positions, indices, attrNames, attributes, itemSize: dimension,
+        shared, name, className, extension
     })
     if (object) objects.push( object )
 
@@ -190,20 +193,29 @@ function loadGocadObject(
 // ----------------------------------------------------
 
 function createObject(
-    {positions, indices, attrNames, attributes, itemSize, shared=true}:
+    {positions, indices, attrNames, attributes, itemSize,shared, name, className, extension}:
     {
         positions : number[],
         indices   : number[],
         attrNames : string[],
         attributes: number[][],
         itemSize: number,
-        shared?: boolean
+        name: string,
+        className: string,
+        shared: boolean,
+        extension: string
     }
 ): DataFrame
 {
     if (positions.length===0) return undefined
     
-    let df = new DataFrame()
+    let df = new DataFrame({
+        userData: {
+            className,
+            extension,
+            name
+        }
+    })
 
     df = df.set('positions', createSerie(createTyped(Float64Array, positions, shared), 3))
 
@@ -227,3 +239,12 @@ function createObject(
 
     return df
 }
+
+/*
+    ==============================================================
+    Deal with collapsing of attribute (vector3, matrix3, smatrix3)
+    ==============================================================
+    if name('xx') exists => maybe a smatrix3 or matrix3 then stop
+    if name('x) exist    => maybe a vectir3 then stop
+    else scalar
+*/

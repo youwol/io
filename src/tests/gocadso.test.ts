@@ -1,3 +1,4 @@
+import { info } from "@youwol/dataframe"
 import { decodeGocadSO } from "../lib"
 
 const bufferSO =
@@ -21,6 +22,8 @@ test('test decode Gocad TS', () => {
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
+    console.log( info(ts) )
+
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(4)
     expect(ts.get('indices').count).toEqual(1)

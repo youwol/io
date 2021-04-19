@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="0" errors="0" time="1.523">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T09:55:09" time="0.632" tests="1">
-    <testcase classname=" test decode Gocad VS" name=" test decode Gocad VS" time="0.004">
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="3.585">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T13:47:22" time="2.688" tests="1">
+    <testcase classname=" test decode Gocad VS" name=" test decode Gocad VS" time="0.012">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T09:55:09" time="0.646" tests="1">
-    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.004">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T13:47:22" time="2.704" tests="1">
+    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.016">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T09:55:09" time="0.643" tests="1">
-    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.005">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T13:47:22" time="2.701" tests="2">
+    <testcase classname=" test decode simple xyz" name=" test decode simple xyz" time="0.008">
+    </testcase>
+    <testcase classname=" test decode xyz implicite" name=" test decode xyz implicite" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T09:55:09" time="0.65" tests="2">
-    <testcase classname=" test 1 decode Gocad TS" name=" test 1 decode Gocad TS" time="0.004">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T13:47:22" time="2.71" tests="1">
+    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-19T13:47:22" time="2.721" tests="2">
+    <testcase classname=" test 1 decode Gocad TS" name=" test 1 decode Gocad TS" time="0.008">
     </testcase>
     <testcase classname=" test 2 decode Gocad TS" name=" test 2 decode Gocad TS" time="0.001">
     </testcase>
