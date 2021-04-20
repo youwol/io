@@ -31,6 +31,8 @@ export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
     let positions: number[]      = []  
     let objects    = []
     let haveZ      = 0
+
+    const impliciteName = 'ImpliciteCube'
     
     for (let i = 0; i < lines.length; ++i) {
         let line = trimAll(lines[i].trim())
@@ -179,7 +181,8 @@ function createObject(
         df = new DataFrame({
             userData: {
                 className,
-                extension
+                extension,
+                attributeNames: attrNames
             }
         })
     }
@@ -188,7 +191,8 @@ function createObject(
             userData: {
                 className,
                 dims,
-                extension
+                extension,
+                attributeNames: attrNames
             }
         })
     }

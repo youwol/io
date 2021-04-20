@@ -9,13 +9,11 @@ const buffer1 =
 `
 
 test('test decode simple xyz', () => {
-    expect(true).toBeTruthy()
-
     const tss = decodeXYZ(buffer1)
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
 
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(3)
@@ -46,13 +44,11 @@ const buffer2 = `# nx: 2
 `
 
 test('test decode xyz implicite', () => {
-    expect(true).toBeTruthy()
-
     const tss = decodeXYZ(buffer2)
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
     
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(4)

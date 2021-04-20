@@ -213,7 +213,8 @@ function createObject(
         userData: {
             className,
             extension,
-            name
+            name,
+            attributeNames: attrNames
         }
     })
 

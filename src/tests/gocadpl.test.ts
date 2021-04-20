@@ -16,13 +16,11 @@ SEG 1 2
 END`
 
 test('test decode Gocad TS', () => {
-    expect(true).toBeTruthy()
-
     const tss = decodeGocadPL(bufferPL)
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
 
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(3)

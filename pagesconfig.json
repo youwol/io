@@ -6,6 +6,10 @@
                 {
                     "title": "Description",
                     "source": "./documentation/description.md"
+                },
+                {
+                    "title": "Todo",
+                    "source": "./documentation/todo.md"
                 }
             ]
         },

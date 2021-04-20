@@ -26,13 +26,11 @@ TRGL 0 1 2
 END`
 
 test('test 1 decode Gocad TS', () => {
-    expect(true).toBeTruthy()
-
     const tss = decodeGocadTS(bufferTS1)
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
 
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(3)
@@ -58,13 +56,11 @@ test('test 1 decode Gocad TS', () => {
 })
 
 test('test 2 decode Gocad TS', () => {
-    expect(true).toBeTruthy()
-
     const tss = decodeGocadTS(bufferTS2)
     expect(tss.length).toEqual(1)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
 
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(3)
