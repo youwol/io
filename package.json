@@ -15,7 +15,7 @@
     "doc": "rm -fr  dist/docs && typedoc src/ --exclude src/lib --exclude src/tests --disableSources --out dist/docs --includeVersion --hideGenerator --theme pages-plugin --media ./media"
   },
   "dependencies": {
-    "@youwol/dataframe": "0.0.1"
+    "@youwol/dataframe": "0.0.3"
   },
   "peerDependencies": {},
   "devDependencies": {

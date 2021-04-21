@@ -1,10 +1,14 @@
 import { DataFrame, IArray, createSerie, createTyped } from '@youwol/dataframe'
+import { collapse } from '../collapse'
 
 /**
  * Create a Gocad Pointset (DataFrame) from a string buffer
  * @category Gocad
  */
-export function decodeGocadVS(buffer: string, shared=true): DataFrame[] {
+export function decodeGocadVS(
+    buffer: string,
+    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+{
     return loadGocadObject({
         buffer, 
         keyword: '',
@@ -12,7 +16,8 @@ export function decodeGocadVS(buffer: string, shared=true): DataFrame[] {
         dimension: 1,
         className: 'Pointset',
         extension: 'vs',
-        shared
+        shared,
+        merge
     })
 }
 
@@ -20,7 +25,10 @@ export function decodeGocadVS(buffer: string, shared=true): DataFrame[] {
  * Create a Gocad Polyline (DataFrame) from a string buffer
  * @category Gocad
  */
-export function decodeGocadPL(buffer: string, shared=true): DataFrame[] {
+export function decodeGocadPL(
+    buffer: string,
+    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+{
     return loadGocadObject({
         buffer, 
         keyword: 'SEG',
@@ -28,7 +36,8 @@ export function decodeGocadPL(buffer: string, shared=true): DataFrame[] {
         dimension: 2,
         className: 'Polyline',
         extension: 'pl',
-        shared
+        shared,
+        merge
     })
 }
 
@@ -36,7 +45,10 @@ export function decodeGocadPL(buffer: string, shared=true): DataFrame[] {
  * Create a Gocad Surface (DataFrame) from a string buffer
  * @category Gocad
  */
-export function decodeGocadTS(buffer: string, shared=true): DataFrame[] {
+export function decodeGocadTS(
+    buffer: string,
+    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+{
     return loadGocadObject({
         buffer, 
         keyword: 'TRGL',
@@ -44,7 +56,8 @@ export function decodeGocadTS(buffer: string, shared=true): DataFrame[] {
         dimension: 3,
         className: 'Surface',
         extension: 'ts',
-        shared
+        shared,
+        merge
     })
 }
 
@@ -52,7 +65,10 @@ export function decodeGocadTS(buffer: string, shared=true): DataFrame[] {
  * Create a Gocad Voule (DataFrame) from a string buffer
  * @category Gocad
  */
-export function decodeGocadSO(buffer: string, shared=true): DataFrame[] {
+export function decodeGocadSO(
+    buffer: string,
+    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+{
     return loadGocadObject({
         buffer, 
         keyword: 'TETRA',
@@ -60,14 +76,15 @@ export function decodeGocadSO(buffer: string, shared=true): DataFrame[] {
         dimension: 4,
         className: 'Volume',
         extension: 'so',
-        shared
+        shared,
+        merge
     })
 }
 
 // ---------------------------------------------------------------------
 
 function loadGocadObject(
-    {buffer, keyword, separator, dimension, className, extension, shared}:
+    {buffer, keyword, separator, dimension, className, extension, shared, merge}:
     {
         buffer: string, 
         keyword: string, 
@@ -75,7 +92,8 @@ function loadGocadObject(
         dimension: number, 
         className: string,
         extension: string,
-        shared: boolean
+        shared: boolean,
+        merge: boolean
     }): DataFrame[]
 {
     let lines      = buffer.split('\n')
@@ -119,7 +137,8 @@ function loadGocadObject(
             // new object
             const object = createObject({
                 positions, indices, attrNames, attributes, 
-                itemSize: dimension, shared, name, className, extension
+                itemSize: dimension, shared, name,
+                className, extension, merge
             })
             if (object) objects.push( object )
 
@@ -133,8 +152,9 @@ function loadGocadObject(
 
         if (r[0] === 'GOCAD') {
             const object = createObject({
-                positions, indices, attrNames, attributes, itemSize: dimension,
-                shared, name, className, extension
+                positions, indices, attrNames, attributes,
+                itemSize: dimension, shared, name,
+                className, extension, merge
             })
             if (object) objects.push( object )
             
@@ -182,8 +202,9 @@ function loadGocadObject(
 
     // Finish the last object if any
     const object = createObject({
-        positions, indices, attrNames, attributes, itemSize: dimension,
-        shared, name, className, extension
+        positions, indices, attrNames, attributes,
+        itemSize: dimension, shared, name,
+        className, extension, merge
     })
     if (object) objects.push( object )
 
@@ -193,7 +214,7 @@ function loadGocadObject(
 // ----------------------------------------------------
 
 function createObject(
-    {positions, indices, attrNames, attributes, itemSize,shared, name, className, extension}:
+    {positions, indices, attrNames, attributes, itemSize,shared, name, className, extension, merge}:
     {
         positions : number[],
         indices   : number[],
@@ -203,7 +224,8 @@ function createObject(
         name: string,
         className: string,
         shared: boolean,
-        extension: string
+        extension: string,
+        merge: boolean
     }
 ): DataFrame
 {
@@ -231,21 +253,17 @@ function createObject(
             df = df.set('indices', createSerie(createTyped(Uint16Array, indices, shared), itemSize) )
         }
     }
-    
-    attrNames.forEach( (name, i) => {
-        // For the moment, itemSize=1.
-        // Have to collapse displ, srain and stress
-        df = df.set(name, createSerie(createTyped(Float64Array, attributes[i], shared), 1))
-    })
+
+    if (merge) {
+        collapse(attrNames, attributes).forEach( attr => {
+            df = df.set(attr.name, createSerie(createTyped(Float64Array, attr.value, shared), attr.itemSize))
+        })
+    }
+    else {
+        attrNames.forEach( (name, i) => {
+            df = df.set(name, createSerie(createTyped(Float64Array, attributes[i], shared), 1))
+        })
+    }
 
     return df
 }
-
-/*
-    ==============================================================
-    Deal with collapsing of attribute (vector3, matrix3, smatrix3)
-    ==============================================================
-    if name('xx') exists => maybe a smatrix3 or matrix3 then stop
-    if name('x) exist    => maybe a vectir3 then stop
-    else scalar
-*/

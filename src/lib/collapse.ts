@@ -26,8 +26,9 @@
  * @param attributes The attributes (flat arrays)
  * @returns flat arrays of collapsed attributes
  */
-export function collapse(attrNames: string[], attributes: number[][]) {
-    const contract = (fullName: string, names: string[], suffixes: string[]): number[][] => {
+export function collapse(attrNames: string[], attributeArrays: number[][]) {
+
+    const contract = (fullName: string, names: string[], attributes: number[][], suffixes: string[]): number[][] => {
         const suf = fullName.substring(fullName.length-suffixes[0].length)
         if (suffixes.includes(suf)) {
             const baseName = fullName.substring(0, fullName.length-suffixes[0].length)
@@ -35,7 +36,13 @@ export function collapse(attrNames: string[], attributes: number[][]) {
                 const ids = suffixes.map( s => names.indexOf(baseName+s) )
                 const attrs = []
                 ids.forEach( id => attrs.push(attributes[id]) )
-                suffixes.map( s => names.splice(names.indexOf(baseName+s), 1) )
+                // remove the names
+                // remove the attributes
+                suffixes.forEach( s => {
+                    const id = names.indexOf(baseName+s)
+                    names.splice(id, 1)
+                    attributes.splice(id, 1)
+                }) // map -> forEach
                 return attrs
             }
         }
@@ -55,22 +62,23 @@ export function collapse(attrNames: string[], attributes: number[][]) {
 
     const perform = (name: string, orders: string[]) => {
         const size = orders.length
-        const mat  = contract(name, names, orders)
+        const mat  = contract(name, names, attributes, orders)
         if (mat) {
             allAttributes.push( concatenate(mat, size) )
-            allNames.push( name.substring(0, name.length-orders[0].length) )
-            allItemSizes.push(orders.length)
-            allOrders.push(orders)
+            allNames     .push( name.substring(0, name.length-orders[0].length) )
+            allItemSizes .push( orders.length )
+            allOrders    .push( orders )
             return true
         }
         return false
     }
 
-    const names = [...attrNames]
+    const names        : string[]   = [...attrNames]
+    const attributes   : number[][] = [...attributeArrays]
     const allAttributes: number[][] = []
-    const allNames: string[] = []
-    const allItemSizes: number[] = []
-    const allOrders: string[][] = []
+    const allNames     : string[]   = []
+    const allItemSizes : number[]   = []
+    const allOrders    : string[][] = []
 
     const tensors = [
         ['xx', 'xy', 'xz', 'yx', 'yy', 'yz', 'zx', 'zy', 'zz'],
@@ -80,25 +88,36 @@ export function collapse(attrNames: string[], attributes: number[][]) {
 
     while (names.length !== 0) {
         const name = names[0]
-        if ( (() => {
+        if ( ! (() => {
                 for (let i=0; i<tensors.length; ++i) {
                     if ( perform(name, tensors[i])  ) return true
                 }
                 return false
-            })() === false)
+            })() )
         {
-            allAttributes.push([...attributes[attrNames.indexOf(name)]])
+            //console.log(name, attrNames, attrNames.indexOf(name), attributes)
+            allAttributes.push( [...attributes[names.indexOf(name)]] )
             allNames.push( name )
             allItemSizes.push(1)
             allOrders.push([name])
             names.shift()
+            attributes.shift()
         }
     }
 
-    return {
-        names    : allNames,
-        values   : allAttributes,
-        itemSizes: allItemSizes,
-        orders   : allOrders
-    }
+    return allNames.map( (_,i) => {
+        return {
+            name    : allNames[i],
+            value   : allAttributes[i],
+            itemSize: allItemSizes[i],
+            order   : allOrders[i]
+        }
+    })
+
+    // return {
+    //     names    : allNames,
+    //     values   : allAttributes,
+    //     itemSizes: allItemSizes,
+    //     orders   : allOrders
+    // }
 }

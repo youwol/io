@@ -1,4 +1,5 @@
 import { createSerie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
+import { collapse } from "../collapse"
 import { trimAll } from "../utils"
 
 /**
@@ -11,9 +12,18 @@ import { trimAll } from "../utils"
  * 0 0 0  1 3
  * ...
  * ```
+ * @example
+ * ```ts
+ * decodeXYZ(buffer)
+ * decodeXYZ(buffer, {merge: false})
+ * decodeXYZ(buffer, {merge: false, shared: false})
+ * ```
  * @category XYZ
  */
-export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
+export function decodeXYZ(
+    buffer: string,
+    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+{
     const dims      = [0, 0, 0]
     let className = 'Pointset'
     const extension = 'xyz'
@@ -76,7 +86,8 @@ export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
                     attrNames, 
                     className,
                     shared,
-                    extension
+                    extension,
+                    merge
                 })
                 if (object) {
                     objects.push(object)
@@ -112,7 +123,8 @@ export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
                 attrNames, 
                 className,
                 shared,
-                extension
+                extension,
+                merge
             })
             if (object) {
                 objects.push(object)
@@ -152,7 +164,8 @@ export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
         attrNames, 
         className,
         shared,
-        extension
+        extension,
+        merge
     })
     if (object) {
         objects.push(object)
@@ -162,7 +175,7 @@ export function decodeXYZ(buffer: string, shared: boolean = true): DataFrame[] {
 }
 
 function createObject(
-    {dims, positions, attrNames, attributes, className, shared=true, extension}:
+    {dims, positions, attrNames, attributes, className, shared=true, extension, merge}:
     {
         dims : number[],
         positions : number[],
@@ -170,7 +183,8 @@ function createObject(
         attributes: number[][],
         className: string,
         shared?: boolean,
-        extension: string
+        extension: string,
+        merge: boolean
     }
 ): DataFrame
 {
@@ -196,18 +210,26 @@ function createObject(
             }
         })
     }
-        
-    //console.log(df)
 
     df = df.set('positions', createSerie(createTyped(Float64Array, positions, shared), 3))
 
-    const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
-    
-    attrNames.forEach( (name, i) => {
-        // For the moment, itemSize=1.
-        // Have to collapse displ, srain and stress
-        df = df.set(name, createSerie(createTyped(Float64Array, attributes[i], shared), 1))
-    })
+    // const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
+    // attrNames.forEach( (name, i) => {
+    //     // For the moment, itemSize=1.
+    //     // Have to collapse displ, srain and stress
+    //     df = df.set(name, createSerie(createTyped(Float64Array, attributes[i], shared), 1))
+    // })
+
+    if (merge) {
+        collapse(attrNames, attributes).forEach( attr => {
+            df = df.set(attr.name, createSerie(createTyped(Float64Array, attr.value, shared), attr.itemSize))
+        })
+    }
+    else {
+        attrNames.forEach( (name, i) => {
+            df = df.set(name, createSerie(createTyped(Float64Array, attributes[i], shared), 1))
+        })
+    }
 
     return df
 }

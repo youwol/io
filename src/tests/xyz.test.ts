@@ -1,8 +1,13 @@
-import { info } from "@youwol/dataframe"
 import { decodeXYZ } from "../lib"
 
 const buffer1 =
-`# x y z a
+`
+# comment 1 with empty line before and after
+
+# comment 2
+# x y z a
+# comment 3
+
 0 0 0 1
 1 0 0 4
 0 1 0 9
@@ -33,7 +38,9 @@ test('test decode simple xyz', () => {
     }
 })
 
-const buffer2 = `# nx: 2
+const buffer2 = `
+# CLASS Cube
+# nx: 2
 # ny: 2
 # nz: 1
 # x y z a
