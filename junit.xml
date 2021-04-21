@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="18" failures="0" errors="0" time="2.759">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="0.629" tests="1">
-    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.005">
+<testsuites name="jest tests" tests="18" failures="0" errors="0" time="2.728">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="0.644" tests="2">
+    <testcase classname=" test decode simple xyz" name=" test decode simple xyz" time="0.004">
+    </testcase>
+    <testcase classname=" test decode xyz implicite" name=" test decode xyz implicite" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="0.647" tests="1">
-    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.005">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="0.652" tests="9">
-    <testcase classname=" test collapse scalar" name=" test collapse scalar" time="0.004">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="0.658" tests="9">
+    <testcase classname=" test collapse scalar" name=" test collapse scalar" time="0.003">
     </testcase>
     <testcase classname=" test collapse vector3" name=" test collapse vector3" time="0.001">
     </testcase>
     <testcase classname=" test collapse vector3 desorder" name=" test collapse vector3 desorder" time="0.001">
     </testcase>
-    <testcase classname=" test collapse scalar &amp; vector3" name=" test collapse scalar &amp; vector3" time="0">
+    <testcase classname=" test collapse scalar &amp; vector3" name=" test collapse scalar &amp; vector3" time="0.001">
     </testcase>
-    <testcase classname=" test collapse smatrix" name=" test collapse smatrix" time="0.001">
+    <testcase classname=" test collapse smatrix" name=" test collapse smatrix" time="0.003">
     </testcase>
     <testcase classname=" test collapse smatrix desorder" name=" test collapse smatrix desorder" time="0">
     </testcase>
     <testcase classname=" test collapse matrix" name=" test collapse matrix" time="0.001">
     </testcase>
-    <testcase classname=" test collapse bad smatrix" name=" test collapse bad smatrix" time="0.001">
+    <testcase classname=" test collapse bad smatrix" name=" test collapse bad smatrix" time="0.002">
     </testcase>
-    <testcase classname=" test collapse many smatrix" name=" test collapse many smatrix" time="0.002">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="0.654" tests="1">
-    <testcase classname=" test decode Gocad VS" name=" test decode Gocad VS" time="0.006">
+    <testcase classname=" test collapse many smatrix" name=" test collapse many smatrix" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="0.669" tests="2">
-    <testcase classname=" test decode simple xyz" name=" test decode simple xyz" time="0.006">
-    </testcase>
-    <testcase classname=" test decode xyz implicite" name=" test decode xyz implicite" time="0.001">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="0.652" tests="1">
+    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T07:51:17" time="1.626" tests="4">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="0.668" tests="1">
+    <testcase classname=" test decode Gocad TS" name=" test decode Gocad TS" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="0.657" tests="1">
+    <testcase classname=" test decode Gocad VS" name=" test decode Gocad VS" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2021-04-21T08:01:05" time="1.817" tests="4">
     <testcase classname=" test 1 decode Gocad TS" name=" test 1 decode Gocad TS" time="0.005">
     </testcase>
-    <testcase classname=" test 1 decode Gocad TS NOT merging" name=" test 1 decode Gocad TS NOT merging" time="0.005">
+    <testcase classname=" test 1 decode Gocad TS NOT merging" name=" test 1 decode Gocad TS NOT merging" time="0.007">
     </testcase>
     <testcase classname=" test 2 decode Gocad TS" name=" test 2 decode Gocad TS" time="0.001">
     </testcase>
-    <testcase classname=" test decode Gocad Galapagos" name=" test decode Gocad Galapagos" time="0.387">
+    <testcase classname=" test decode Gocad Galapagos" name=" test decode Gocad Galapagos" time="0.004">
     </testcase>
   </testsuite>
 </testsuites>

@@ -146,6 +146,9 @@ test('test 2 decode Gocad TS', () => {
 
 test('test decode Gocad Galapagos', () => {
     const dfs = decodeGocadTS(data)
+
+    expect(dfs.length).toEqual(2) // 2 objects
+
     const df = dfs[0]
 
     const attrs = ['positions','indices',
@@ -156,22 +159,22 @@ test('test decode Gocad Galapagos', () => {
         if (name.startsWith('pos')) {
             expect(attrs.indexOf(name)).toBeDefined()
             expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(5811) // points
+            expect(info.serie.count).toEqual(6) // points
         }
         if (name.startsWith('ind')) {
             expect(attrs.indexOf(name)).toBeDefined()
             expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(11105) // triangles
+            expect(info.serie.count).toEqual(2) // triangles
         }
         if (name.startsWith('U')) {
             expect(attrs.indexOf(name)).toBeDefined()
             expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(5811)
+            expect(info.serie.count).toEqual(6)
         }
         if (name.startsWith('S')) {
             expect(attrs.indexOf(name)).toBeDefined()
             expect(info.serie.itemSize).toEqual(6)
-            expect(info.serie.count).toEqual(5811)
+            expect(info.serie.count).toEqual(6)
         }
     })
 })
