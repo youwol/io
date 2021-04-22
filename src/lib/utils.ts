@@ -1,3 +1,3 @@
 export function trimAll(s: string) {
-    return s.replace(/\s+/g, ' ').replace(/^\s+|\s+$/, '').replace('\t', ' ')
+    return s.replace(/\s+/g, ' ').replace(/^\s+|\s+$/, '').replace('\t', ' ').trimEnd()
 }

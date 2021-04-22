@@ -13,7 +13,6 @@ test('test collapse scalar', () => {
     expect(sol[1].value).toEqual([4, 5, 6])
 })
 
-
 test('test collapse vector3', () => {
     const attributes = [[1,2], [3,4], [5,6]]
     const names = ['ux', 'uy', 'uz']

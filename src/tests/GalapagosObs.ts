@@ -1,4 +1,4 @@
-export const data = `GOCAD TSurf 1
+export const dataGala = `GOCAD TSurf 1
 HEADER {
 name:Galapagos_obs
 }

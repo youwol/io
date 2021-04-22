@@ -1,5 +1,6 @@
 import { DataFrame, IArray, createSerie, createTyped } from '@youwol/dataframe'
 import { collapse } from '../collapse'
+import { trimAll } from '../utils'
 
 /**
  * Create a Gocad Pointset (DataFrame) from a string buffer
@@ -113,7 +114,7 @@ function loadGocadObject(
     const SEP = separator
 
     for (let i = 0; i < lines.length; ++i) {
-        let line = lines[i].trim()
+        let line = trimAll(lines[i]) //lines[i].trim()
         if (line.length === 0 || line.charAt(0) === '#') {
             continue
         }

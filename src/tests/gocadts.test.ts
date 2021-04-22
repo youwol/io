@@ -1,9 +1,28 @@
 import { decodeGocadTS } from "../lib"
-import { info } from "@youwol/dataframe"
-import { data } from './GalapagosObs'
+import { info, minMaxArray } from "@youwol/dataframe"
+import { dataGala } from './GalapagosObs'
+import { dataS1 } from './S1'
 
 const bufferTS1 =
 `GOCAD TSurf 1
+HEADER {
+  name: test
+
+}
+# coucou
+
+      
+PROPERTIES a Ux Uy Uz
+
+TFACE
+PVRTX 0 0 0 0 1 0 0 0
+PVRTX 1 1 0 0 4 1 1 1
+PVRTX 2 0 1 0 9 2 2 2
+TRGL 0 1 2
+END
+
+
+GOCAD TSurf 1
 HEADER {
   name: test
 }
@@ -28,7 +47,7 @@ END`
 
 test('test 1 decode Gocad TS', () => {
     const tss = decodeGocadTS(bufferTS1)
-    expect(tss.length).toEqual(1)
+    expect(tss.length).toEqual(2)
 
     const ts = tss[0]
     //console.log( info(ts) )
@@ -71,10 +90,10 @@ test('test 1 decode Gocad TS', () => {
 
 test('test 1 decode Gocad TS NOT merging', () => {
     const tss = decodeGocadTS(bufferTS1, {merge: false})
-    expect(tss.length).toEqual(1)
+    expect(tss.length).toEqual(2)
 
     const ts = tss[0]
-    console.log( info(ts) )
+    //console.log( info(ts) )
 
     expect(ts.get('positions')).toBeDefined()
     expect(ts.get('positions').count).toEqual(3)
@@ -144,8 +163,8 @@ test('test 2 decode Gocad TS', () => {
     }
 })
 
-test('test decode Gocad Galapagos', () => {
-    const dfs = decodeGocadTS(data)
+test('test decode Gocad Galapagos with many stresses and displs', () => {
+    const dfs = decodeGocadTS(dataGala)
 
     expect(dfs.length).toEqual(2) // 2 objects
 
@@ -176,5 +195,50 @@ test('test decode Gocad Galapagos', () => {
             expect(info.serie.itemSize).toEqual(6)
             expect(info.serie.count).toEqual(6)
         }
+    })
+})
+
+// 246 nodes
+// 438 triangles
+// This file includes spaces and tabulations
+test('test decode Gocad with tabulations, spaces, empty lines and comments', () => {
+    const dfs = decodeGocadTS(dataS1)
+    expect(dfs.length).toEqual(1)
+
+    const df = dfs[0]
+    
+    const attrs = ['positions','indices', 'C', 'F', 'V', 'Z']
+    const names = ['C', 'F', 'V', 'Z']
+    const visited = new Map<string, boolean>([
+        ['C', false],
+        ['F', false],
+        ['V', false],
+        ['Z', false]]
+    )
+
+    df.series.forEach( (info, name) => {
+        if (name.startsWith('pos')) {
+            expect(attrs.indexOf(name)).toBeDefined()
+            expect(info.serie.itemSize).toEqual(3)
+            expect(info.serie.count).toEqual(246) // points
+        }
+        else if (name.startsWith('ind')) {
+            expect(attrs.indexOf(name)).toBeDefined()
+            expect(info.serie.itemSize).toEqual(3)
+            expect(info.serie.count).toEqual(438) // triangles
+        }
+
+        else {
+            expect(attrs.indexOf(name)).toBeDefined()
+            expect(info.serie.itemSize).toEqual(1)
+            expect(info.serie.count).toEqual(246)
+            visited.set(name, true)
+        }
+    })
+
+    expect(visited.size).toEqual(4)
+    visited.forEach( (v,k) => {
+        expect(v).toBeTruthy()
+        expect(names.includes(k)).toBeTruthy()
     })
 })
