@@ -22,7 +22,7 @@ console.log( ts.get('a').count )
 
 const sol_a = [1,4,9]
 const a = ts.get('a')
-a.forEachItem( (v,i) => console.assert(v === sol_a[i]) )
+a.forEach( (v,i) => console.assert(v === sol_a[i]) )
 
 const p = ts.get('positions')
-p.forEachItem( (v,i) => console.log(v) )
+p.forEach( (v,i) => console.log(v) )

@@ -28,12 +28,12 @@ test('test decode Gocad VS', () => {
     {
         const sa = [1,4,9]
         const a = ts.get('a')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
         const a = ts.get('positions')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 })

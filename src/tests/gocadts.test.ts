@@ -1,5 +1,4 @@
 import { decodeGocadTS } from "../lib"
-import { info, minMaxArray } from "@youwol/dataframe"
 import { dataGala } from './GalapagosObs'
 import { dataS1 } from './S1'
 
@@ -67,24 +66,24 @@ test('test 1 decode Gocad TS', () => {
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
         const a = ts.get('positions')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
         const a = ts.get('indices')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sa = [1,4,9]
         const a = ts.get('a')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sU = [[0,0,0], [1,1,1], [2,2,2]]
         const U = ts.get('U')
-        U.forEachItem( (v,i) => expect(v).toEqual(sU[i]) )
+        U.forEach( (v,i) => expect(v).toEqual(sU[i]) )
     }
 })
 
@@ -110,32 +109,32 @@ test('test 1 decode Gocad TS NOT merging', () => {
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
         const a = ts.get('positions')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
         const a = ts.get('indices')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [1,4,9]
         const a = ts.get('a')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
         const a = ts.get('Ux')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
         const a = ts.get('Uy')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
         const a = ts.get('Uz')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     
 })
@@ -154,12 +153,12 @@ test('test 2 decode Gocad TS', () => {
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
         const a = ts.get('positions')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
         const a = ts.get('indices')
-        a.forEachItem( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 })
 

@@ -241,28 +241,37 @@ function createObject(
         }
     })
 
-    df = df.set('positions', createSerie(createTyped(Float32Array, positions, shared), 3))
+    df = df.set('positions', createSerie({data: createTyped(Float32Array, positions, shared), itemSize: 3}))
 
     const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
 
     if (indices !== undefined && indices.length !==0) {
         const max = arrayMax(indices)
         if (max>65535) {
-            df = df.set('indices', createSerie(createTyped(Uint32Array, indices, shared), itemSize) )
+            df = df.set('indices', createSerie({
+                data: createTyped(Uint32Array, indices, shared), itemSize
+            }) )
         }
         else {
-            df = df.set('indices', createSerie(createTyped(Uint16Array, indices, shared), itemSize) )
+            df = df.set('indices', createSerie({
+                data: createTyped(Uint16Array, indices, shared), itemSize
+            }) )
         }
     }
 
     if (merge) {
         collapse(attrNames, attributes).forEach( attr => {
-            df = df.set(attr.name, createSerie(createTyped(Float32Array, attr.value, shared), attr.itemSize))
+            df = df.set(attr.name, createSerie({data: createTyped(Float32Array, attr.value, shared), 
+                itemSize: attr.itemSize
+            }))
         })
     }
     else {
         attrNames.forEach( (name, i) => {
-            df = df.set(name, createSerie(createTyped(Float32Array, attributes[i], shared), 1))
+            df = df.set(name, createSerie({
+                data: createTyped(Float32Array, attributes[i], shared),
+                itemSize: 1
+            }))
         })
     }
 
