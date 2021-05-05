@@ -1,4 +1,4 @@
-import { createSerie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
+import { append, createSerie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
 import { collapse } from "../collapse"
 import { trimAll } from "../utils"
 
@@ -192,7 +192,7 @@ function createObject(
     
     let df  = undefined
     if (dims[0]===0 && dims[1]===0&&dims[2]===0) {
-        df = new DataFrame({
+        df = new DataFrame(undefined, {
             userData: {
                 className,
                 extension,
@@ -201,7 +201,7 @@ function createObject(
         })
     }
     else {
-        df = new DataFrame({
+        df = new DataFrame(undefined, {
             userData: {
                 className,
                 dims,
@@ -211,10 +211,12 @@ function createObject(
         })
     }
 
-    df = df.set('positions', createSerie({
-        data: createTyped(Float32Array, positions, shared),
-        itemSize: 3
-    }))
+    df = append(df, {
+        'positions': createSerie({
+            data: createTyped(Float32Array, positions, shared),
+            itemSize: 3
+        })
+    })
 
     // const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
     // attrNames.forEach( (name, i) => {
@@ -224,20 +226,38 @@ function createObject(
     // })
 
     if (merge) {
+        const entries = new Map
         collapse(attrNames, attributes).forEach( attr => {
-            df = df.set(attr.name, createSerie({
-                data: createTyped(Float32Array, attr.value, shared),
+            entries.set( attr.name, createSerie({
+                data: createTyped(Float32Array, attr.value, shared), 
                 itemSize: attr.itemSize
-            }))
+            }) )
         })
+        df = append(df, Object.fromEntries(entries))
+
+        // collapse(attrNames, attributes).forEach( attr => {
+        //     df = df.set(attr.name, createSerie({
+        //         data: createTyped(Float32Array, attr.value, shared),
+        //         itemSize: attr.itemSize
+        //     }))
+        // })
     }
     else {
+        const entries = new Map
         attrNames.forEach( (name, i) => {
-            df = df.set(name, createSerie({
+            entries.set(name, createSerie({
                 data: createTyped(Float32Array, attributes[i], shared),
                 itemSize: 1
             }))
         })
+        df = append(df, Object.fromEntries(entries))
+        
+        // attrNames.forEach( (name, i) => {
+        //     df = df.set(name, createSerie({
+        //         data: createTyped(Float32Array, attributes[i], shared),
+        //         itemSize: 1
+        //     }))
+        // })
     }
 
     return df

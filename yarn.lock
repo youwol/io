@@ -807,9 +807,16 @@
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
 "@youwol/dataframe@0.x":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.5.tgz#f4fd36f7bb0a4b9debd58d89569052ec3677a47d"
-  integrity sha512-1mElyXdY+tI2qqOhMxfmyZ3FRplEA/5pDGpGdxxEyU1mO8wp2870QuskLDyTFVTFTaw4uVGrDwJlswaDJdZOwQ==
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.12.tgz#65165d48846b9e7c3a4367ff6da347fb06eba0ee"
+  integrity sha512-jGF2/9J1TGB0Vvl/oGJkhLrL2AmNXbxaCQstDSJqJWtIWLux2wCtZbcsDgu7Di9+Rtg1ADkH6AJ9GBO0OhjutQ==
+
+"@youwol/math@0.x":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.2.tgz#31d72236b15c44c640cb132356376d657b3181e3"
+  integrity sha512-TJE+B8slbH9HEmWYm4lbkxDnv2xgIXrTG/DM2sRAmVmcqzhVF7A3JM7SGiNruTJJXI7Xcg+41fjxomPUbnmGnw==
+  dependencies:
+    tslib "^2.2.0"
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
