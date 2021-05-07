@@ -1,6 +1,6 @@
 ```ts
 import { decodeGocadTS } from '@youwol/io'
-import { DataFrame, info } from '@youwol/dataframe'
+import { info } from '@youwol/dataframe'
 
 const buffer = `GOCAD TSurf 1
 HEADER {

@@ -17,7 +17,7 @@
             "title": "Examples",
             "pages": [
                 {
-                    "title": "Decode a gocad TS file and get basic info",
+                    "title": "Decode a gocad buffer and get basic info",
                     "source": "./documentation/example1.md"
                 },
                 {

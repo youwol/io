@@ -1,5 +1,4 @@
 ```ts
-const df   = require('@youwol/dataframe')
 const io   = require('@youwol/io')
 const fs   = require('fs')
 

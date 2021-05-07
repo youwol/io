@@ -14,7 +14,10 @@ io.decodeGocadTS( fs.readFileSync('./input.gcd', 'utf8') ).forEach( (df, i) => {
 	console.log( "  - attributes: count =", n)
 	df.series.forEach( info => {
 		if (info.serie.name !== 'positions' && info.serie.name !== 'indices') {
-			console.log( `    -  ${info.serie.name}  :`, 'itemSize =', info.serie.itemSize, 'count =', info.serie.count)
+			console.log(
+				`    -  ${info.serie.name}  :`,
+				'itemSize =', info.serie.itemSize, 'count =', info.serie.count
+			)
 		}
 	})
 })
