@@ -1,6 +1,6 @@
-const io   = require('../dist/@youwol/io')
-const df   = require('../../dataframe/dist/@youwol/dataframe')
-const geom = require('../../geometry/dist/@youwol/geometry')
+const io   = require('@youwol/io')
+const df   = require('@youwol/dataframe')
+const geom = require('@youwol/geometry')
 const fs   = require('fs')
 
 const data = fs.readFileSync('./s1.gcd', 'utf8')

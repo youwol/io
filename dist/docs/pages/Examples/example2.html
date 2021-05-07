@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Description | @youwol/io - v0.0.9</title>
+	<title>Decode and encode a gocad TS file | @youwol/io - v0.0.9</title>
 	<meta name="description" content="Documentation for @youwol/io - v0.0.9">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../../assets/css/main.css">
@@ -57,13 +57,13 @@
 					<a href="../../modules.html">Globals</a>
 				</li>
 				<li>
-					<a href="description.html">Info</a>
+					<a href="example1.html">Examples</a>
 				</li>
 				<li>
-					<a href="description.html">Description</a>
+					<a href="example2.html">Decode and encode a gocad TS file</a>
 				</li>
 			</ul>
-			<h1>Description</h1>
+			<h1>Decode and encode a gocad TS file</h1>
 		</div>
 	</div>
 </header>
@@ -71,8 +71,16 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p><code>@youwol/io</code> allows to decode specific formats from string buffer.
-				The decoded objects are <code>DataFrame</code> defined in <code>@youwol/dataframe</code>.</p>
+				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">df</span><span style="color: #000000">   = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@youwol/dataframe&#039;</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">io</span><span style="color: #000000">   = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;@youwol/io&#039;</span><span style="color: #000000">)</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fs</span><span style="color: #000000">   = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">)</span>
+
+<span style="color: #008000">// load</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dfs</span><span style="color: #000000"> = </span><span style="color: #001080">io</span><span style="color: #000000">.</span><span style="color: #795E26">decodeGocadTS</span><span style="color: #000000">( </span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">readFileSync</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./file.gcd&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;utf8&#039;</span><span style="color: #000000">) )</span>
+
+<span style="color: #008000">// save</span>
+<span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;output.gcd&#039;</span><span style="color: #000000">, </span><span style="color: #001080">io</span><span style="color: #000000">.</span><span style="color: #795E26">encodeGocadTS</span><span style="color: #000000">(</span><span style="color: #001080">dfs</span><span style="color: #000000">), </span><span style="color: #A31515">&#039;utf8&#039;</span><span style="color: #000000">, </span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {})</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -81,23 +89,23 @@
 					<li class="label pp-nav pp-group">
 						<span>Info</span>
 					</li>
-					<li class="current pp-nav pp-page">
-						<a href="description.html">Description</a>
+					<li class=" pp-nav pp-page">
+						<a href="../Info/description.html">Description</a>
 					</li>
 					<li class=" pp-nav pp-page">
-						<a href="todo.html">Todo</a>
+						<a href="../Info/todo.html">Todo</a>
 					</li>
 					<li class="label pp-nav pp-group">
 						<span>Examples</span>
 					</li>
 					<li class=" pp-nav pp-page">
-						<a href="../Examples/example1.html">Decode a gocad TS file and get basic info</a>
+						<a href="example1.html">Decode a gocad TS file and get basic info</a>
+					</li>
+					<li class="current pp-nav pp-page">
+						<a href="example2.html">Decode and encode a gocad TS file</a>
 					</li>
 					<li class=" pp-nav pp-page">
-						<a href="../Examples/example2.html">Decode and encode a gocad TS file</a>
-					</li>
-					<li class=" pp-nav pp-page">
-						<a href="../Examples/example3.html">Get deep info about a gocad TS file</a>
+						<a href="example3.html">Get deep info about a gocad TS file</a>
 					</li>
 					<li class="label pp-nav pp-group">
 						<span>API</span>

@@ -17,8 +17,16 @@
             "title": "Examples",
             "pages": [
                 {
-                    "title": "Decode a gocad TS file",
+                    "title": "Decode a gocad TS file and get basic info",
                     "source": "./documentation/example1.md"
+                },
+                {
+                    "title": "Decode and encode a gocad TS file",
+                    "source": "./documentation/example2.md"
+                },
+                {
+                    "title": "Get deep info about a gocad TS file",
+                    "source": "./documentation/example3.md"
                 }
             ]
         }
