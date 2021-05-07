@@ -1,3 +1,5 @@
+import { concatenate } from "./concatenate"
+
 /**
  * Allow to collapse special attributes based on name suffixes
  * <ul>
@@ -28,6 +30,7 @@
  */
 export function collapse(attrNames: string[], attributeArrays: number[][]) {
 
+    // Detect potential attributes with itemSize>1
     const contract = (fullName: string, names: string[], attributes: number[][], suffixes: string[]): number[][] => {
         const suf = fullName.substring(fullName.length-suffixes[0].length)
         if (suffixes.includes(suf)) {
@@ -49,22 +52,22 @@ export function collapse(attrNames: string[], attributeArrays: number[][]) {
         return undefined
     }
 
-    const concatenate = (mat: number[][], itemSize: number) => {
-        const m = mat.length
-        const n = mat[0].length
-        const a = new Array(n*itemSize).fill(0)
-        let k = 0
-        for (let j=0; j<n; ++j) {
-            for (let i=0; i<m; ++i) a[k++] = mat[i][j]
-        }
-        return a
-    }
+    // const concatenate = (mat: number[][], itemSize: number) => {
+    //     const m = mat.length
+    //     const n = mat[0].length
+    //     const a = new Array(n*itemSize).fill(0)
+    //     let k = 0
+    //     for (let j=0; j<n; ++j) {
+    //         for (let i=0; i<m; ++i) a[k++] = mat[i][j]
+    //     }
+    //     return a
+    // }
 
     const perform = (name: string, orders: string[]) => {
-        const size = orders.length
+        //const size = orders.length
         const mat  = contract(name, names, attributes, orders)
         if (mat) {
-            allAttributes.push( concatenate(mat, size) )
+            allAttributes.push( concatenate(mat) )
             allNames     .push( name.substring(0, name.length-orders[0].length) )
             allItemSizes .push( orders.length )
             allOrders    .push( orders )
@@ -113,11 +116,4 @@ export function collapse(attrNames: string[], attributeArrays: number[][]) {
             order   : allOrders[i]
         }
     })
-
-    // return {
-    //     names    : allNames,
-    //     values   : allAttributes,
-    //     itemSizes: allItemSizes,
-    //     orders   : allOrders
-    // }
 }

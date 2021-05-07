@@ -19,7 +19,7 @@ const points = dfs[0].get('positions') // get the points coordinates only
 const plane  = geom.fittingPlane(points)
 
 const surface = geom.triangulate( points, plane.normal )
-console.log(surface)
+console.log( df.info(surface) )
 // {
 //     console.log( "  - nb vertices:", surface.get('positions').count )
 //     console.log( "  - nb faces   :", surface.get('indices').count )
