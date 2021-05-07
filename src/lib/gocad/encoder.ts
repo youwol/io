@@ -1,5 +1,8 @@
 import { ASerie, DataFrame } from "@youwol/dataframe"
 
+/**
+ * @category Options
+ */
 export type GocadEncodeOptions = {
     saveAttributes: boolean,
     saveTopology: boolean,
@@ -7,8 +10,8 @@ export type GocadEncodeOptions = {
 }
 
 /**
- * Get the buffer object a Gocad pointset 
- * @category Gocad
+ * Get the buffer object of a Gocad pointset 
+ * @category Encoder
  */
  export function encodeGocadVS(dfs: DataFrame[] | DataFrame, options: GocadEncodeOptions = undefined): string {
     let buffer = ''
@@ -29,8 +32,8 @@ export type GocadEncodeOptions = {
 }
 
 /**
- * Get the buffer object a Gocad lineset 
- * @category Gocad
+ * Get the buffer object of a Gocad lineset 
+ * @category Encoder
  */
  export function encodeGocadPL(dfs: DataFrame[] | DataFrame, options: GocadEncodeOptions = undefined): string {
     let buffer = ''
@@ -51,8 +54,8 @@ export type GocadEncodeOptions = {
 }
 
 /**
- * Get the buffer object a Gocad triangulated surface 
- * @category Gocad
+ * Get the buffer object of a Gocad triangulated surface 
+ * @category Encoder
  */
  export function encodeGocadTS(dfs: DataFrame[] | DataFrame, options: GocadEncodeOptions = undefined): string {
     let buffer = ''
@@ -73,8 +76,8 @@ export type GocadEncodeOptions = {
 }
 
 /**
- * Get the buffer object a Gocad volume 
- * @category Gocad
+ * Get the buffer object of a Gocad volume 
+ * @category Encoder
  */
  export function encodeGocadSO(dfs: DataFrame[] | DataFrame, options: GocadEncodeOptions = undefined): string {
     let buffer = ''

@@ -18,7 +18,7 @@ import { trimAll } from "../utils"
  * decodeXYZ(buffer, {merge: false})
  * decodeXYZ(buffer, {merge: false, shared: false})
  * ```
- * @category XYZ
+ * @category Decoder
  */
 export function decodeXYZ(
     buffer: string,

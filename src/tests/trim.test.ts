@@ -1,6 +1,7 @@
-import { trimAll, decodeGocadTS } from "../lib"
-import { info } from "@youwol/dataframe"
-import { dataS1 } from './S1'
+import { trimAll } from "../lib/utils"
+// import { decodeGocadTS } from "../lib/gocad"
+// import { info } from "@youwol/dataframe"
+// import { dataS1 } from './S1'
 
 test('test decode Gocad S1', () => {
     const a = '  PROPERTIES	C	F	V	Z				        '

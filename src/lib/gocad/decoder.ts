@@ -5,7 +5,7 @@ import { trimAll } from '../utils'
 
 /**
  * Create a Gocad Pointset (DataFrame) from a string buffer
- * @category Gocad
+ * @category Decoder
  */
 export function decodeGocadVS(
     buffer: string,
@@ -25,7 +25,7 @@ export function decodeGocadVS(
 
 /**
  * Create a Gocad Polyline (DataFrame) from a string buffer
- * @category Gocad
+ * @category Decoder
  */
 export function decodeGocadPL(
     buffer: string,
@@ -45,7 +45,7 @@ export function decodeGocadPL(
 
 /**
  * Create a Gocad Surface (DataFrame) from a string buffer
- * @category Gocad
+ * @category Decoder
  */
 export function decodeGocadTS(
     buffer: string,
@@ -65,7 +65,7 @@ export function decodeGocadTS(
 
 /**
  * Create a Gocad Voule (DataFrame) from a string buffer
- * @category Gocad
+ * @category Decoder
  */
 export function decodeGocadSO(
     buffer: string,

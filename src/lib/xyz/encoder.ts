@@ -1,10 +1,17 @@
 import { ASerie, DataFrame } from "@youwol/dataframe"
 
+/**
+ * @category Options
+ */
 export type XYZEncodeOptions = {
     saveAttributes: boolean,
     saveGeometry: boolean
 }
 
+/**
+ * Get the buffer object of an xyz pointset 
+ * @category Encoder
+ */
 export function encodeXYZ(dfs: DataFrame[] | DataFrame, options: XYZEncodeOptions = undefined): string {
     let buffer = ''
 

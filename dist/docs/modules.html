@@ -69,39 +69,35 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
+							<h3>Options Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias"><a href="modules.html#gocadencodeoptions" class="tsd-kind-icon">Gocad<wbr>Encode<wbr>Options</a></li>
 								<li class="tsd-kind-type-alias"><a href="modules.html#xyzencodeoptions" class="tsd-kind-icon">XYZEncode<wbr>Options</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Gocad Functions</h3>
+							<h3>Decoder Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#decodegocadpl" class="tsd-kind-icon">decode<wbr>GocadPL</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#decodegocadso" class="tsd-kind-icon">decode<wbr>GocadSO</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#decodegocadts" class="tsd-kind-icon">decode<wbr>GocadTS</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#decodegocadvs" class="tsd-kind-icon">decode<wbr>GocadVS</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#decodexyz" class="tsd-kind-icon">decodeXYZ</a></li>
+							</ul>
+							<h3>Encoder Functions</h3>
+							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#encodegocadpl" class="tsd-kind-icon">encode<wbr>GocadPL</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#encodegocadso" class="tsd-kind-icon">encode<wbr>GocadSO</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#encodegocadts" class="tsd-kind-icon">encode<wbr>GocadTS</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#encodegocadvs" class="tsd-kind-icon">encode<wbr>GocadVS</a></li>
-							</ul>
-							<h3>Other Functions</h3>
-							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#encodexyz" class="tsd-kind-icon">encodeXYZ</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#trimall" class="tsd-kind-icon">trim<wbr>All</a></li>
-							</ul>
-							<h3>XYZ Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function"><a href="modules.html#decodexyz" class="tsd-kind-icon">decodeXYZ</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
+				<h2>Options Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="gocadencodeoptions" class="tsd-anchor"></a>
 					<h3>Gocad<wbr>Encode<wbr>Options</h3>
@@ -143,7 +139,7 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Gocad Functions</h2>
+				<h2>Decoder Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="decodegocadpl" class="tsd-anchor"></a>
 					<h3>decode<wbr>GocadPL</h3>
@@ -289,167 +285,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="encodegocadpl" class="tsd-anchor"></a>
-					<h3>encode<wbr>GocadPL</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadPL<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the buffer object a Gocad lineset</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
-								</li>
-								<li>
-									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="encodegocadso" class="tsd-anchor"></a>
-					<h3>encode<wbr>GocadSO</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadSO<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the buffer object a Gocad volume</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
-								</li>
-								<li>
-									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="encodegocadts" class="tsd-anchor"></a>
-					<h3>encode<wbr>GocadTS</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadTS<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the buffer object a Gocad triangulated surface</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
-								</li>
-								<li>
-									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="encodegocadvs" class="tsd-anchor"></a>
-					<h3>encode<wbr>GocadVS</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadVS<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the buffer object a Gocad pointset</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
-								</li>
-								<li>
-									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Other Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="encodexyz" class="tsd-anchor"></a>
-					<h3>encodeXYZ</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encodeXYZ<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#xyzencodeoptions" class="tsd-signature-type">XYZEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
-								</li>
-								<li>
-									<h5>options: <a href="modules.html#xyzencodeoptions" class="tsd-signature-type">XYZEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="trimall" class="tsd-anchor"></a>
-					<h3>trim<wbr>All</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">trim<wbr>All<span class="tsd-signature-symbol">(</span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>s: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>XYZ Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="decodexyz" class="tsd-anchor"></a>
 					<h3>decodeXYZ</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -497,6 +332,149 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Encoder Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encodegocadpl" class="tsd-anchor"></a>
+					<h3>encode<wbr>GocadPL</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadPL<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the buffer object of a Gocad lineset</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
+								</li>
+								<li>
+									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encodegocadso" class="tsd-anchor"></a>
+					<h3>encode<wbr>GocadSO</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadSO<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the buffer object of a Gocad volume</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
+								</li>
+								<li>
+									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encodegocadts" class="tsd-anchor"></a>
+					<h3>encode<wbr>GocadTS</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadTS<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the buffer object of a Gocad triangulated surface</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
+								</li>
+								<li>
+									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encodegocadvs" class="tsd-anchor"></a>
+					<h3>encode<wbr>GocadVS</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>GocadVS<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the buffer object of a Gocad pointset</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
+								</li>
+								<li>
+									<h5>options: <a href="modules.html#gocadencodeoptions" class="tsd-signature-type">GocadEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encodexyz" class="tsd-anchor"></a>
+					<h3>encodeXYZ</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encodeXYZ<span class="tsd-signature-symbol">(</span>dfs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span>, options<span class="tsd-signature-symbol">?: </span><a href="modules.html#xyzencodeoptions" class="tsd-signature-type">XYZEncodeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the buffer object of an xyz pointset</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dfs: <span class="tsd-signature-type">DataFrame</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DataFrame</span></h5>
+								</li>
+								<li>
+									<h5>options: <a href="modules.html#xyzencodeoptions" class="tsd-signature-type">XYZEncodeOptions</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -565,9 +543,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#encodexyz" class="tsd-kind-icon">encodeXYZ</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#trimall" class="tsd-kind-icon">trim<wbr>All</a>
 					</li>
 				</ul>
 			</nav>
