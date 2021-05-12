@@ -124,7 +124,9 @@ function encodeGocadObject(
     const indices   = df.get('indices')
 
     let buffer = header
-    buffer = buffer.replace('no-name', df.userData.name)
+    if (df.userData && df.userData.name) {
+        buffer = buffer.replace('no-name', df.userData.name)
+    }
 
     let attrs: ASerie[] = []
 
@@ -133,7 +135,15 @@ function encodeGocadObject(
         df.series.forEach( (info, name) => {
             if (name !== 'positions' && name !=='indices') {
                 if (info.serie.count !== positions.count) {
-                    throw new Error(`attribute count mistmatch for '${info.serie.name}' (got ${info.serie.count}). Should be equal to 'positions' count (${positions.count})`)
+                    let msg = `attribute count mistmatch for '${info.serie.name}' (got ${info.serie.count}).
+Should be equal to 'positions' count (${positions.count}).\n`
+                    if (info.serie.count === indices.count) {
+                        throw new Error(msg+
+                            'Did you forget to export at nodes instead of triangles?\n')
+                    }
+                    else {
+                        throw new Error(msg)
+                    }
                 }
                 attrs.push(info.serie)
             }

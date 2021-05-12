@@ -1,4 +1,4 @@
-import { DataFrame, IArray, createSerie, createTyped, append, map } from '@youwol/dataframe'
+import { DataFrame, IArray, createSerie, createTyped, append } from '@youwol/dataframe'
 import { collapse } from '../collapse'
 import { concatenate } from '../concatenate'
 import { trimAll } from '../utils'
