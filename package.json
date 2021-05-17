@@ -45,6 +45,8 @@
       "name": "yw_pipeline_webpack_ts",
       "version": "0.0.0"
     },
-    "cdnDependencies": {}
+    "cdnDependencies": {
+      "@youwol/dataframe": "0.x"
+    }
   }
 }
