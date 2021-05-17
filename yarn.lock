@@ -823,12 +823,15 @@
   resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.12.tgz#65165d48846b9e7c3a4367ff6da347fb06eba0ee"
   integrity sha512-jGF2/9J1TGB0Vvl/oGJkhLrL2AmNXbxaCQstDSJqJWtIWLux2wCtZbcsDgu7Di9+Rtg1ADkH6AJ9GBO0OhjutQ==
 
-"@youwol/math@0.x":
+"@youwol/geometry@0.x":
   version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.2.tgz#31d72236b15c44c640cb132356376d657b3181e3"
-  integrity sha512-TJE+B8slbH9HEmWYm4lbkxDnv2xgIXrTG/DM2sRAmVmcqzhVF7A3JM7SGiNruTJJXI7Xcg+41fjxomPUbnmGnw==
-  dependencies:
-    tslib "^2.2.0"
+  resolved "https://registry.yarnpkg.com/@youwol/geometry/-/geometry-0.0.2.tgz#465003d448da7ab931bfabf4803d4fd7f82fff93"
+  integrity sha512-uqbos9KKjMI+pBZBbnPnl6imgDYQyNgumhLSMM75XzvrUVbw8aTMdRSTk+oFa6IxmctgyTU2Re2hyqY8d/7xLA==
+
+"@youwol/math@0.x":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.4.tgz#c63db42eb6cda4393161d0343441ead746d44438"
+  integrity sha512-XFv0top4Yfn6I3AjaYxmn8pgzEC6ci2BzoGCpL+0mRforia5M7sbXi81DX6qsjy55DskPc34Zo5PoeWVqZWGfg==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
