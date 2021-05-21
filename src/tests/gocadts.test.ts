@@ -51,38 +51,38 @@ test('test 1 decode Gocad TS', () => {
     const ts = tss[0]
     //console.log( info(ts) )
 
-    expect(ts.get('positions')).toBeDefined()
-    expect(ts.get('positions').count).toEqual(3)
-    expect(ts.get('indices').count).toEqual(1)
+    expect(ts.series.positions).toBeDefined()
+    expect(ts.series.positions.count).toEqual(3)
+    expect(ts.series.indices.count).toEqual(1)
 
-    expect(ts.get('a')).toBeDefined()
-    expect(ts.get('a').count).toEqual(3)
-    expect(ts.get('a').itemSize).toEqual(1)
+    expect(ts.series.a).toBeDefined()
+    expect(ts.series.a.count).toEqual(3)
+    expect(ts.series.a.itemSize).toEqual(1)
 
-    expect(ts.get('U')).toBeDefined()
-    expect(ts.get('U').count).toEqual(3)
-    expect(ts.get('U').itemSize).toEqual(3)
+    expect(ts.series.U).toBeDefined()
+    expect(ts.series.U.count).toEqual(3)
+    expect(ts.series.U.itemSize).toEqual(3)
     
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
-        const a = ts.get('positions')
+        const a = ts.series.positions
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
-        const a = ts.get('indices')
+        const a = ts.series.indices
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sa = [1,4,9]
-        const a = ts.get('a')
+        const a = ts.series.a
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sU = [[0,0,0], [1,1,1], [2,2,2]]
-        const U = ts.get('U')
+        const U = ts.series.U
         U.forEach( (v,i) => expect(v).toEqual(sU[i]) )
     }
 })
@@ -94,46 +94,46 @@ test('test 1 decode Gocad TS NOT merging', () => {
     const ts = tss[0]
     //console.log( info(ts) )
 
-    expect(ts.get('positions')).toBeDefined()
-    expect(ts.get('positions').count).toEqual(3)
-    expect(ts.get('indices').count).toEqual(1)
+    expect(ts.series.positions).toBeDefined()
+    expect(ts.series.positions.count).toEqual(3)
+    expect(ts.series.indices.count).toEqual(1)
 
-    expect(ts.get('a')).toBeDefined()
-    expect(ts.get('a').count).toEqual(3)
-    expect(ts.get('a').itemSize).toEqual(1)
+    expect(ts.series.a).toBeDefined()
+    expect(ts.series.a.count).toEqual(3)
+    expect(ts.series.a.itemSize).toEqual(1)
 
-    expect(ts.get('Ux')).toBeDefined()
-    expect(ts.get('Ux').count).toEqual(3)
-    expect(ts.get('Ux').itemSize).toEqual(1)
+    expect(ts.series.Ux).toBeDefined()
+    expect(ts.series.Ux.count).toEqual(3)
+    expect(ts.series.Ux.itemSize).toEqual(1)
     
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
-        const a = ts.get('positions')
+        const a = ts.series.positions
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
-        const a = ts.get('indices')
+        const a = ts.series.indices
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [1,4,9]
-        const a = ts.get('a')
+        const a = ts.series.a
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
-        const a = ts.get('Ux')
+        const a = ts.series.Ux
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
-        const a = ts.get('Uy')
+        const a = ts.series.Uy
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [0,1,2]
-        const a = ts.get('Uz')
+        const a = ts.series.Uz
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     
@@ -145,19 +145,19 @@ test('test 2 decode Gocad TS', () => {
 
     const ts = tss[0]
 
-    expect(ts.get('positions')).toBeDefined()
-    expect(ts.get('positions').count).toEqual(3)
-    expect(ts.get('indices').count).toEqual(1)
-    expect(ts.get('a')).toBeUndefined()
+    expect(ts.series.positions).toBeDefined()
+    expect(ts.series.positions.count).toEqual(3)
+    expect(ts.series.indices.count).toEqual(1)
+    expect(ts.series.a).toBeUndefined()
     
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
-        const a = ts.get('positions')
+        const a = ts.series.positions
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
     {
         const sa = [[0,1,2]]
-        const a = ts.get('indices')
+        const a = ts.series.indices
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 })
@@ -173,26 +173,26 @@ test('test decode Gocad Galapagos with many stresses and displs', () => {
         'U1','U2','U3','U4','U5','U6','U7','U8','U8','U10','U11','U12',
         'S1','S2','S3','S4','S5','S6','S7','S8','S8','S10','S11','S12']
     // 5811 nodes
-    df.series.forEach( (info, name) => {
+    Object.entries(df.series).forEach( ([name, serie]) => {
         if (name.startsWith('pos')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(6) // points
+            expect(serie.itemSize).toEqual(3)
+            expect(serie.count).toEqual(6) // points
         }
         if (name.startsWith('ind')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(2) // triangles
+            expect(serie.itemSize).toEqual(3)
+            expect(serie.count).toEqual(2) // triangles
         }
         if (name.startsWith('U')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(6)
+            expect(serie.itemSize).toEqual(3)
+            expect(serie.count).toEqual(6)
         }
         if (name.startsWith('S')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(6)
-            expect(info.serie.count).toEqual(6)
+            expect(serie.itemSize).toEqual(6)
+            expect(serie.count).toEqual(6)
         }
     })
 })
@@ -215,22 +215,22 @@ test('test decode Gocad with tabulations, spaces, empty lines and comments', () 
         ['Z', false]]
     )
 
-    df.series.forEach( (info, name) => {
+    Object.entries(df.series).forEach( ([name, serie]) => {
         if (name.startsWith('pos')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(246) // points
+            expect(serie.itemSize).toEqual(3)
+            expect(serie.count).toEqual(246) // points
         }
         else if (name.startsWith('ind')) {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(3)
-            expect(info.serie.count).toEqual(438) // triangles
+            expect(serie.itemSize).toEqual(3)
+            expect(serie.count).toEqual(438) // triangles
         }
 
         else {
             expect(attrs.indexOf(name)).toBeDefined()
-            expect(info.serie.itemSize).toEqual(1)
-            expect(info.serie.count).toEqual(246)
+            expect(serie.itemSize).toEqual(1)
+            expect(serie.count).toEqual(246)
             visited.set(name, true)
         }
     })

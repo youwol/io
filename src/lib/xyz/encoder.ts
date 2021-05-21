@@ -1,4 +1,4 @@
-import { ASerie, DataFrame } from "@youwol/dataframe"
+import { Serie, DataFrame } from "@youwol/dataframe"
 
 /**
  * @category Options
@@ -42,29 +42,29 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
 
     const opts = getXYZEncodeOptions(options)
 
-    const positions = df.get('positions')
+    const positions = df.series.positions
     if (positions === undefined) throw new Error('missing "positions" in dataframe')
 
     let buffer = ''
 
-    let attrs: ASerie[] = []
+    let attrs: Array<[string,Serie]> = []
     if (opts.saveAttributes) {
-        df.series.forEach( (info, name) => {
+        Object.entries(df.series).forEach( ([name, serie]:[string,Serie]) => {
             if (name !== 'positions') {
-                if (info.serie.count !== positions.count) {
-                    throw new Error(`attribute count mistmatch for '${info.serie.name}' (got ${info.serie.count}). Should be equal to 'positions' count (${positions.count})`)
+                if (serie.count !== positions.count) {
+                    throw new Error(`attribute count mistmatch for '${name}' (got ${serie.count}). Should be equal to 'positions' count (${positions.count})`)
                 }
-                attrs.push(info.serie)
+                attrs.push([name, serie])
             }
         })
 
         if (attrs.length > 0) {
             buffer += '# x y z '
-            attrs.forEach( attr => buffer += attr.name+' ' )
+            attrs.forEach( ([name, _]) => buffer += name+' ' )
             buffer += '\n'
 
             buffer += '# sizes '
-            attrs.forEach( attr => buffer += attr.itemSize+' ' )
+            attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' )
             buffer += '\n'
         }
         else {
@@ -75,7 +75,7 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
     if (opts.saveGeometry) {
         positions.forEach( (item, i) => {
             buffer += `${item.join(' ')} `
-            if (opts.saveAttributes) attrs.forEach( attr => buffer += `${toString(attr.itemAt(i))} ` )
+            if (opts.saveAttributes) attrs.forEach( ([_, serie]) => buffer += `${toString(serie.itemAt(i))} ` )
             buffer += '\n'
         })
     }

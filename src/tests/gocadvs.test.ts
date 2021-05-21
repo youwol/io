@@ -20,20 +20,20 @@ test('test decode Gocad VS', () => {
     const ts = tss[0]
     //console.log( info(ts) )
 
-    expect(ts.get('positions')).toBeDefined()
-    expect(ts.get('positions').count).toEqual(3)
-    expect(ts.get('indices')).toBeUndefined()
-    expect(ts.get('a').count).toEqual(3)
+    expect(ts.series.positions).toBeDefined()
+    expect(ts.series.positions.count).toEqual(3)
+    expect(ts.series.indices).toBeUndefined()
+    expect(ts.series.a.count).toEqual(3)
     
     {
         const sa = [1,4,9]
-        const a = ts.get('a')
+        const a = ts.series.a
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 
     {
         const sa = [[0,0,0], [1,0,0], [0,1,0]]
-        const a = ts.get('positions')
+        const a = ts.series.positions
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 })

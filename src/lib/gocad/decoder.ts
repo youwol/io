@@ -1,4 +1,4 @@
-import { DataFrame, IArray, createSerie, createTyped, append } from '@youwol/dataframe'
+import { DataFrame, IArray, Serie, createTyped, append } from '@youwol/dataframe'
 import { collapse } from '../collapse'
 import { concatenate } from '../concatenate'
 import { trimAll } from '../utils'
@@ -260,30 +260,30 @@ function createObject(
 {
     if (positions.length===0) return undefined
     
-    let df = new DataFrame(undefined, {
+    let userData = {
         className,
         extension,
         name,
         attributeNames: attrNames
-    })
+    } 
+    let posSerie = Serie.create({array: createTyped<Float32Array>(Float32Array, positions, shared), itemSize: 3})
 
-    df = append(df, {
-        'positions': createSerie({data: createTyped(Float32Array, positions, shared), itemSize: 3})
-    })
-
-    if (indices !== undefined && indices.length !==0) {
-        const max = arrayMax(indices)
-        if (max>65535) {
-            df = append(df, {
-                'indices': createSerie({data: createTyped(Uint32Array, indices, shared), itemSize})
-            })
-        }
-        else {
-            df = append(df, {
-                'indices': createSerie({data: createTyped(Uint16Array, indices, shared), itemSize})
-            })
-        }
-    }
+    let df = (indices !== undefined && indices.length !==0) 
+        ?  DataFrame.create({
+            series:{
+                positions: posSerie,
+                indices: (arrayMax(indices)>65535)
+                    ? Serie.create({array: createTyped<Uint32Array>(Uint32Array, indices, shared), itemSize})
+                    : Serie.create({array: createTyped<Uint16Array>(Uint16Array, indices, shared), itemSize})
+            }, 
+            userData
+        })
+        : DataFrame.create({
+            series:{
+                positions: posSerie,
+            }, 
+            userData
+        })
 
     // can merge only if all attribute are of size 1
     const canMerge = attrSizes.reduce( (acc, size) => acc && size===1, true )
@@ -291,10 +291,13 @@ function createObject(
     if (merge && canMerge) {
         const entries = new Map
         collapse(attrNames, attributes).forEach( attr => {
-            entries.set( attr.name, createSerie({
-                data: createTyped(Float32Array, attr.value, shared), 
-                itemSize: attr.itemSize
-            }) )
+            entries.set( 
+                attr.name, 
+                Serie.create({
+                    array: createTyped<Float32Array>(Float32Array, attr.value, shared), 
+                    itemSize: attr.itemSize
+                })
+            )
         })
         df = append(df, Object.fromEntries(entries))
     }
@@ -309,10 +312,13 @@ function createObject(
                 attrs.push(attributes[j])
             }
             const attr = concatenate(attrs)
-            entries.set(attrNames[k], createSerie({
-                data: createTyped(Float32Array, attr, shared),
-                itemSize: size
-            }))
+            entries.set(
+                attrNames[k], 
+                Serie.create({
+                    array: createTyped<Float32Array>(Float32Array, attr, shared),
+                    itemSize: size
+                })
+            )
             i += size
         })
 

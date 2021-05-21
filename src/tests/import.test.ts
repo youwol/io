@@ -11,16 +11,16 @@ test('fake test', () => {
     dfs.forEach( d => {
         dfs.forEach( (d, i) => {
             console.log( "Surface", i+1 )
-            console.log( "  - nb vertices:", d.get('positions').count )
-            console.log( "  - nb faces   :", d.get('indices').count )
+            console.log( "  - nb vertices:", d.series.positions.count )
+            console.log( "  - nb faces   :", d.series.indices.count )
         })
     })
 
-    const points = dfs[0].get('positions') // get the points coordinates only
+    const points = dfs[0].series.positions // get the points coordinates only
     const plane  = fittingPlane(points)
 
     const surface = triangulate( points, plane.normal )
-    console.log( surface.get('positions') )
-    console.log( surface.get('indices') )
+    console.log( surface.series.positions )
+    console.log( surface.series.indices )
 })
 

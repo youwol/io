@@ -1,4 +1,4 @@
-import { append, createSerie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
+import { append, Serie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
 import { collapse } from "../collapse"
 import { trimAll } from "../utils"
 
@@ -190,33 +190,25 @@ function createObject(
 {
     if (positions.length===0) return undefined
     
-    let df  = undefined
-    if (dims[0]===0 && dims[1]===0&&dims[2]===0) {
-        df = new DataFrame(undefined, {
-            userData: {
-                className,
-                extension,
-                attributeNames: attrNames
-            }
-        })
+    let userData = {
+        className,
+        extension,
+        attributeNames: attrNames
     }
-    else {
-        df = new DataFrame(undefined, {
-            userData: {
-                className,
-                dims,
-                extension,
-                attributeNames: attrNames
-            }
-        })
-    }
-
-    df = append(df, {
-        'positions': createSerie({
-            data: createTyped(Float32Array, positions, shared),
-            itemSize: 3
-        })
+    let posSerie = Serie.create({
+        array: createTyped<Float32Array>(Float32Array, positions, shared),
+        itemSize: 3
     })
+
+    let df  = (dims[0]===0 && dims[1]===0&&dims[2]===0) 
+        ?   DataFrame.create({
+                series:{ positions: posSerie},
+                userData
+            })
+        :   DataFrame.create({
+            series:{ positions: posSerie},
+            userData: {...userData, ...{dims} }
+        })
 
     // const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
     // attrNames.forEach( (name, i) => {
@@ -228,8 +220,8 @@ function createObject(
     if (merge) {
         const entries = new Map
         collapse(attrNames, attributes).forEach( attr => {
-            entries.set( attr.name, createSerie({
-                data: createTyped(Float32Array, attr.value, shared), 
+            entries.set( attr.name, Serie.create({
+                array: createTyped<Float32Array>(Float32Array, attr.value, shared), 
                 itemSize: attr.itemSize
             }) )
         })
@@ -245,8 +237,8 @@ function createObject(
     else {
         const entries = new Map
         attrNames.forEach( (name, i) => {
-            entries.set(name, createSerie({
-                data: createTyped(Float32Array, attributes[i], shared),
+            entries.set(name, Serie.create({
+                array: createTyped<Float32Array>(Float32Array, attributes[i], shared),
                 itemSize: 1
             }))
         })

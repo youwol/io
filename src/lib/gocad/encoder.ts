@@ -1,4 +1,4 @@
-import { ASerie, DataFrame } from "@youwol/dataframe"
+import { Serie, DataFrame } from "@youwol/dataframe"
 
 /**
  * @category Options
@@ -118,26 +118,26 @@ function encodeGocadObject(
 {
     const opts = getGocadEncodeOptions(options)
 
-    const positions = df.get('positions')
+    const positions = df.series.positions
     if (positions === undefined) throw new Error('missing "positions" in dataframe')
 
-    const indices   = df.get('indices')
+    const indices   = df.series.indices
 
     let buffer = header
     if (df.userData && df.userData.name) {
         buffer = buffer.replace('no-name', df.userData.name)
     }
 
-    let attrs: ASerie[] = []
+    let attrs: Array<[string, Serie]> = []
 
     // Do the properties
     if (opts.saveAttributes) {
-        df.series.forEach( (info, name) => {
+        Object.entries(df.series).forEach( ([name, serie]: [string, Serie]) => {
             if (name !== 'positions' && name !=='indices') {
-                if (info.serie.count !== positions.count) {
-                    let msg = `attribute count mistmatch for '${info.serie.name}' (got ${info.serie.count}).
+                if (serie.count !== positions.count) {
+                    let msg = `attribute count mistmatch for '${name}' (got ${serie.count}).
 Should be equal to 'positions' count (${positions.count}).\n`
-                    if (info.serie.count === indices.count) {
+                    if (serie.count === indices.count) {
                         throw new Error(msg+
                             'Did you forget to export at nodes instead of triangles?\n')
                     }
@@ -145,13 +145,13 @@ Should be equal to 'positions' count (${positions.count}).\n`
                         throw new Error(msg)
                     }
                 }
-                attrs.push(info.serie)
+                attrs.push([name, serie])
             }
         })
 
         if (attrs.length > 0) {
-            buffer += 'PROPERTIES '; attrs.forEach( attr => buffer += attr.name+' ' )    ; buffer += '\n'
-            buffer += 'ESIZES '    ; attrs.forEach( attr => buffer += attr.itemSize+' ' ); buffer += '\n'
+            buffer += 'PROPERTIES '; attrs.forEach( ([name, _]) => buffer += name+' ' )    ; buffer += '\n'
+            buffer += 'ESIZES '    ; attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' ); buffer += '\n'
         }
     }
     const suffix = attrs.length > 0 ? "PVRTX" : "VRTX"
@@ -160,7 +160,7 @@ Should be equal to 'positions' count (${positions.count}).\n`
     if (opts.saveGeometry) {
         positions.forEach( (item, i) => {
             buffer += `${suffix}  ${i} ${item.join(' ')} `
-            if (opts.saveAttributes) attrs.forEach( attr => buffer += `${toString(attr.itemAt(i))} ` )
+            if (opts.saveAttributes) attrs.forEach( ([_, serie])  => buffer += `${toString(serie.itemAt(i))} ` )
             buffer += '\n'
         })
     }
