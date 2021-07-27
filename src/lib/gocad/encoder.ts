@@ -4,9 +4,10 @@ import { Serie, DataFrame } from "@youwol/dataframe"
  * @category Options
  */
 export type GocadEncodeOptions = {
-    saveAttributes: boolean,
-    saveTopology: boolean,
-    saveGeometry: boolean
+    saveAttributes  : boolean, // true
+    saveTopology    : boolean, // true
+    saveGeometry    : boolean, // true
+    expandAttributes: boolean  // false
 }
 
 /**
@@ -100,11 +101,19 @@ export type GocadEncodeOptions = {
 // ------------------------------------------------------------
 
 const getGocadEncodeOptions = (o: GocadEncodeOptions): GocadEncodeOptions => {
-    const r = {saveAttributes: true, saveTopology: true, saveGeometry: true}
-    if (o === undefined) return r
-    r.saveAttributes = o.saveAttributes!==undefined ? o.saveAttributes : true
-    r.saveTopology = o.saveTopology!==undefined ? o.saveTopology : true
-    r.saveGeometry = o.saveGeometry!==undefined ? o.saveGeometry : true
+    const r = {
+        saveAttributes: true,
+        saveTopology: true,
+        saveGeometry: true,
+        expandAttributes: false
+    }
+    if (o === undefined) {
+        return r
+    }
+    r.saveAttributes   = o.saveAttributes   !== undefined ? o.saveAttributes   : true
+    r.saveTopology     = o.saveTopology     !== undefined ? o.saveTopology     : true
+    r.saveGeometry     = o.saveGeometry     !== undefined ? o.saveGeometry     : true
+    r.expandAttributes = o.expandAttributes !== undefined ? o.expandAttributes : false
     return r
 }
 
@@ -150,8 +159,33 @@ Should be equal to 'positions' count (${positions.count}).\n`
         })
 
         if (attrs.length > 0) {
-            buffer += 'PROPERTIES '; attrs.forEach( ([name, _]) => buffer += name+' ' )    ; buffer += '\n'
-            buffer += 'ESIZES '    ; attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' ); buffer += '\n'
+            if (options.expandAttributes===false) {
+                buffer += 'PROPERTIES '
+                attrs.forEach( ([name, _]) => buffer += name+' ' )
+                buffer += '\nESIZES '
+                attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' )
+                buffer += '\n'
+            }
+            else {
+                buffer += 'PROPERTIES '
+                let n = 0
+                attrs.forEach( ([name, serie]) => {
+                    if (serie.itemSize === 1) {
+                        n++
+                        return buffer += name+' '
+                    }
+                    for (let i=1; i<=serie.itemSize; ++i) {
+                        n++
+                        buffer += `${name}${i} `
+                    }
+                    return buffer
+                })
+                buffer += '\nESIZES '
+                for (let i=0; i<n; ++i) {
+                    buffer += `1 `
+                }
+                buffer += '\n'
+            }
         }
     }
     const suffix = attrs.length > 0 ? "PVRTX" : "VRTX"
