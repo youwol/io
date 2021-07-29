@@ -1,5 +1,10 @@
 import { Serie, DataFrame } from "@youwol/dataframe"
 
+const mapTensors = new Map<number, Array<string>>()
+mapTensors.set(3, ['x', 'y', 'z']);
+mapTensors.set(6, ['xx', 'xy', 'xz', 'yy', 'yz', 'zz']);
+mapTensors.set(9, ['xx', 'xy', 'xz', 'yx', 'yy', 'yz', 'zx', 'zy', 'zz']);
+
 /**
  * @category Options
  */
@@ -62,8 +67,16 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
             buffer += '# x y z '
             //attrs.forEach( ([name, _]) => buffer += name+' ' )
             attrs.forEach( ([name, serie]) => {
-                for (let j=0; j<serie.itemSize; ++j) {
-                    buffer += `name${j} `
+                const names = mapTensors.get(serie.itemSize)
+                if (names === undefined) {
+                    for (let j=0; j<serie.itemSize; ++j) {
+                        buffer += `${name}${j} `
+                    }
+                }
+                else {
+                    names.forEach( n => {
+                        buffer += `${name}${n} `
+                    })
                 }
             })
             buffer += '\n'

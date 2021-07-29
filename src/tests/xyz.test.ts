@@ -1,5 +1,5 @@
 import { info } from "@youwol/dataframe"
-import { decodeXYZ } from "../lib"
+import { decodeXYZ, encodeXYZ } from "../lib"
 
 const buffer1 =
 `
@@ -81,12 +81,12 @@ const buffer3 =
 # comment 1 with empty line before and after
 
 # comment 2
-# x y z Ux Uy Uz
+# x y z Ux Uy Uz Sxx Sxy Sxz Syy Szz Syz Exx Exy Exz Eyx Eyy Eyz Ezx Ezy Ezz
 # comment 3
 
-0 0 0  1  2  3
-1 0 0  4  5  6
-0 1 0  9 10 11
+0 0 0  1  2  3  0 0 0 0 0 0  0 0 0 0 0 0 0 0 0
+1 0 0  4  5  6  0 0 0 0 0 0  0 0 0 0 0 0 0 0 0
+0 1 0  9 10 11  0 0 0 0 0 0  0 0 0 0 0 0 0 0 0
 `
 
 test('test decode simple xyz with vector attr (collapse)', () => {
@@ -98,13 +98,25 @@ test('test decode simple xyz with vector attr (collapse)', () => {
     expect(ts.series.positions).toBeDefined()
     expect(ts.series.positions.count).toEqual(3)
     expect(ts.series.indices).toBeUndefined()
+
     expect(ts.series.U).toBeDefined()
     expect(ts.series.U.count).toEqual(3)
     expect(ts.series.U.itemSize).toEqual(3)
+
+    expect(ts.series.S).toBeDefined()
+    expect(ts.series.S.count).toEqual(3)
+    expect(ts.series.S.itemSize).toEqual(6)
+
+    expect(ts.series.E).toBeDefined()
+    expect(ts.series.E.count).toEqual(3)
+    expect(ts.series.E.itemSize).toEqual(9)
     
     {
         const sa = [[1,2,3], [4,5,6], [9,10,11]]
         const U = ts.series.U
         U.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
+
+    console.log(ts)
+    console.log(encodeXYZ(ts))
 })
