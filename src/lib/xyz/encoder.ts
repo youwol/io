@@ -60,12 +60,17 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
 
         if (attrs.length > 0) {
             buffer += '# x y z '
-            attrs.forEach( ([name, _]) => buffer += name+' ' )
+            //attrs.forEach( ([name, _]) => buffer += name+' ' )
+            attrs.forEach( ([name, serie]) => {
+                for (let j=0; j<serie.itemSize; ++j) {
+                    buffer += `name${j} `
+                }
+            })
             buffer += '\n'
 
-            buffer += '# sizes '
-            attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' )
-            buffer += '\n'
+            // buffer += '# sizes '
+            // attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' )
+            // buffer += '\n'
         }
         else {
             buffer += '# x y z\n'
@@ -75,7 +80,9 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
     if (opts.saveGeometry) {
         positions.forEach( (item, i) => {
             buffer += `${item.join(' ')} `
-            if (opts.saveAttributes) attrs.forEach( ([_, serie]) => buffer += `${toString(serie.itemAt(i))} ` )
+            if (opts.saveAttributes) {
+                attrs.forEach( ([_, serie]) => buffer += `${toString(serie.itemAt(i))} ` )
+            }
             buffer += '\n'
         })
     }

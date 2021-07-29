@@ -8,8 +8,9 @@ import { trimAll } from "../utils"
  * # nx: 10
  * # ny: 10
  * # nz: 10
- * # x y z attr1 attr2 ...
- * 0 0 0  1 3
+ * # x y z a normal stress1
+ * # sizes 1 3 6
+ * 0 0 0  9  1 3 2  0 0 0 0 0 0
  * ...
  * ```
  * @example
@@ -37,8 +38,9 @@ export function decodeXYZ(
     //  */
     let lines      = buffer.split('\n')
     let attributes: number[][] = []
-    let attrNames: string[]      = []
-    let positions: number[]      = []  
+    let attrNames : string[]   = []
+    //let attrSizes : number[]   = []
+    let positions : number[]   = []  
     let objects    = []
     let haveZ      = 0
 
@@ -98,6 +100,17 @@ export function decodeXYZ(
             if (r[1] !== 'x' && r[2] !== 'y') { // comment
                 continue
             }
+
+            // if (r[1] === 'sizes') {
+            //     attrSizes  = []
+            //     for (let j = 1; j < r.length; ++j) {
+            //         attrSizes.push( parseInt(r[j]) )
+            //     }
+            //     if (attrSizes.length !== attrNames.length) {
+            //         throw new Error(`sizes mismatch between property names (${attrNames.length}) and sizes (${attrSizes.length})`)
+            //     }
+            //     continue
+            // }
     
             if (r.length > 3 && r[3] === 'z') {
                 start++ ;
@@ -105,8 +118,8 @@ export function decodeXYZ(
             }
 
             attributes = []
-            attrNames      = []
-            positions      = []
+            attrNames  = []
+            positions  = []
             for (let j = start; j < r.length; ++j) {
                 attributes.push([])
                 attrNames.push(r[j])
@@ -130,8 +143,8 @@ export function decodeXYZ(
                 objects.push(object)
             }
             attributes = []
-            attrNames = []
-            positions = []
+            attrNames  = []
+            positions  = []
 
             for (let j = 1; j < r.length; ++j) {
                 attributes.push([])

@@ -1,3 +1,4 @@
+import { info } from "@youwol/dataframe"
 import { decodeXYZ } from "../lib"
 
 const buffer1 =
@@ -72,5 +73,38 @@ test('test decode xyz implicite', () => {
         const sa = [[0,0,0], [1,0,0], [0,1,0], [0,1,1]]
         const a = ts.series.positions
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+    }
+})
+
+const buffer3 =
+`
+# comment 1 with empty line before and after
+
+# comment 2
+# x y z Ux Uy Uz
+# comment 3
+
+0 0 0  1  2  3
+1 0 0  4  5  6
+0 1 0  9 10 11
+`
+
+test('test decode simple xyz with vector attr (collapse)', () => {
+    const tss = decodeXYZ(buffer3)
+    expect(tss.length).toEqual(1)
+
+    const ts = tss[0]
+
+    expect(ts.series.positions).toBeDefined()
+    expect(ts.series.positions.count).toEqual(3)
+    expect(ts.series.indices).toBeUndefined()
+    expect(ts.series.U).toBeDefined()
+    expect(ts.series.U.count).toEqual(3)
+    expect(ts.series.U.itemSize).toEqual(3)
+    
+    {
+        const sa = [[1,2,3], [4,5,6], [9,10,11]]
+        const U = ts.series.U
+        U.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
 })
