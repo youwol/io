@@ -159,7 +159,7 @@ Should be equal to 'positions' count (${positions.count}).\n`
         })
 
         if (attrs.length > 0) {
-            if (options.expandAttributes===false) {
+            if (opts.expandAttributes===false) {
                 buffer += 'PROPERTIES '
                 attrs.forEach( ([name, _]) => buffer += name+' ' )
                 buffer += '\nESIZES '

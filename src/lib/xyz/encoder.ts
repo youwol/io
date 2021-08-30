@@ -6,11 +6,27 @@ mapTensors.set(6, ['xx', 'xy', 'xz', 'yy', 'yz', 'zz']);
 mapTensors.set(9, ['xx', 'xy', 'xz', 'yx', 'yy', 'yz', 'zx', 'zy', 'zz']);
 
 /**
+ * Options for getting a buffer (string) in XYZ format
  * @category Options
  */
 export type XYZEncodeOptions = {
-    saveAttributes: boolean,
-    saveGeometry: boolean
+    /**
+     * Save or not the attributes. Default is true
+     */
+    saveAttributes?: boolean,
+    /**
+     * Save or not the point geometry. Default is true
+     */
+    saveGeometry?: boolean,
+    /**
+     * The delimiter for the number. Default is one space
+     */
+    delimiter?: string,
+    /**
+     * The number of digits. Default is undefined and will not fixe the digits (number
+     * will be "as is")
+     */
+    fixed?: number
 }
 
 /**
@@ -31,10 +47,12 @@ export function encodeXYZ(dfs: DataFrame[] | DataFrame, options: XYZEncodeOption
 // ------------------------------------------------------------------------
 
 const getXYZEncodeOptions = (o: XYZEncodeOptions): XYZEncodeOptions => {
-    const r = {saveAttributes: true, saveGeometry: true}
+    const r = {saveAttributes: true, saveGeometry: true, delimiter: ' ', fixed: 12}
     if (o === undefined) return r
-    r.saveAttributes = o.saveAttributes!==undefined ? o.saveAttributes : true
-    r.saveGeometry = o.saveGeometry!==undefined ? o.saveGeometry : true
+    r.saveAttributes = o.saveAttributes !== undefined ? o.saveAttributes : true
+    r.saveGeometry   = o.saveGeometry   !== undefined ? o.saveGeometry : true
+    r.delimiter      = o.delimiter      !== undefined ? o.delimiter : ' '
+    r.fixed          = o.fixed          !== undefined ? o.fixed : undefined
     return r
 }
 
@@ -67,16 +85,21 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
             buffer += '# x y z '
             //attrs.forEach( ([name, _]) => buffer += name+' ' )
             attrs.forEach( ([name, serie]) => {
-                const names = mapTensors.get(serie.itemSize)
-                if (names === undefined) {
-                    for (let j=0; j<serie.itemSize; ++j) {
-                        buffer += `${name}${j} `
-                    }
+                if (serie.itemSize === 1) {
+                    buffer += `${name} `
                 }
                 else {
-                    names.forEach( n => {
-                        buffer += `${name}${n} `
-                    })
+                    const names = mapTensors.get(serie.itemSize)
+                    if (names === undefined) {
+                        for (let j=0; j<serie.itemSize; ++j) {
+                            buffer += `${name}${j} `
+                        }
+                    }
+                    else {
+                        names.forEach( n => {
+                            buffer += `${name}${n} `
+                        })
+                    }
                 }
             })
             buffer += '\n'
@@ -90,15 +113,36 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
         }
     }
 
-    if (opts.saveGeometry) {
-        positions.forEach( (item, i) => {
-            buffer += `${item.join(' ')} `
-            if (opts.saveAttributes) {
-                attrs.forEach( ([_, serie]) => buffer += `${toString(serie.itemAt(i))} ` )
+    const doFixed = opts.fixed !== undefined
+
+
+    positions.forEach( (item, i) => {
+        if (opts.saveGeometry) {
+            //buffer += `${item.join(opts.delimiter)}` + opts.delimiter
+            for (let j=0; j<item.length; ++j) {
+                if (doFixed) buffer += `${item[j].toFixed(opts.fixed)}` + opts.delimiter
+                else         buffer += `${toString(item[j])}` + opts.delimiter
             }
-            buffer += '\n'
-        })
-    }
+        }
+        if (opts.saveAttributes) {
+            attrs.forEach( ([_, serie]) => {
+                if (serie.itemSize===1) {
+                    let num = serie.itemAt(i) as number
+                    if (doFixed) buffer += `${num.toFixed(opts.fixed)}` + opts.delimiter
+                    else         buffer += `${toString(num)}` + opts.delimiter
+                }
+                else {
+                    let num = serie.itemAt(i) as number[]
+                    for (let j=0; j<num.length; ++j) {
+                        if (doFixed) buffer += `${num[j].toFixed(opts.fixed)}` + opts.delimiter
+                        else         buffer += `${toString(num[j])}` + opts.delimiter
+                    }
+                }
+                //buffer += `${toString(serie.itemAt(i))}` + opts.delimiter
+            })
+        }
+        buffer += '\n'
+    })
 
     return buffer
 }
