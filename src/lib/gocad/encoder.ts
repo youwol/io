@@ -7,7 +7,8 @@ export type GocadEncodeOptions = {
     saveAttributes  : boolean, // true
     saveTopology    : boolean, // true
     saveGeometry    : boolean, // true
-    expandAttributes: boolean  // false
+    expandAttributes: boolean, // false
+    userData        : {[key:string]: any} // undefined
 }
 
 /**
@@ -100,20 +101,22 @@ export type GocadEncodeOptions = {
 
 // ------------------------------------------------------------
 
-const getGocadEncodeOptions = (o: GocadEncodeOptions): GocadEncodeOptions => {
+const getGocadEncodeOptions = (options: GocadEncodeOptions): GocadEncodeOptions => {
     const r = {
         saveAttributes: true,
         saveTopology: true,
         saveGeometry: true,
-        expandAttributes: false
+        expandAttributes: false,
+        userData: undefined
     }
-    if (o === undefined) {
+    if (options === undefined) {
         return r
     }
-    r.saveAttributes   = o.saveAttributes   !== undefined ? o.saveAttributes   : true
-    r.saveTopology     = o.saveTopology     !== undefined ? o.saveTopology     : true
-    r.saveGeometry     = o.saveGeometry     !== undefined ? o.saveGeometry     : true
-    r.expandAttributes = o.expandAttributes !== undefined ? o.expandAttributes : false
+    r.saveAttributes   = options.saveAttributes   !== undefined ? options.saveAttributes   : true
+    r.saveTopology     = options.saveTopology     !== undefined ? options.saveTopology     : true
+    r.saveGeometry     = options.saveGeometry     !== undefined ? options.saveGeometry     : true
+    r.expandAttributes = options.expandAttributes !== undefined ? options.expandAttributes : false
+    r.userData = options.userData
     return r
 }
 
@@ -133,8 +136,15 @@ function encodeGocadObject(
     const indices   = df.series.indices
 
     let buffer = header
+    
     if (df.userData && df.userData.name) {
         buffer = buffer.replace('no-name', df.userData.name)
+    }
+
+    if (opts.userData !== undefined) {
+        for (const [key, value] of Object.entries(opts.userData)) {
+            buffer += `# ${key} ${value}`
+        }
     }
 
     let attrs: Array<[string, Serie]> = []

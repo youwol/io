@@ -26,7 +26,12 @@ export type XYZEncodeOptions = {
      * The number of digits. Default is undefined and will not fixe the digits (number
      * will be "as is")
      */
-    fixed?: number
+    fixed?: number,
+
+    /**
+     * Any user data (undefined by default)
+     */
+    userData        : {[key:string]: any} // undefined
 }
 
 /**
@@ -47,12 +52,13 @@ export function encodeXYZ(dfs: DataFrame[] | DataFrame, options: XYZEncodeOption
 // ------------------------------------------------------------------------
 
 const getXYZEncodeOptions = (o: XYZEncodeOptions): XYZEncodeOptions => {
-    const r = {saveAttributes: true, saveGeometry: true, delimiter: ' ', fixed: 12}
+    const r = {saveAttributes: true, saveGeometry: true, delimiter: ' ', fixed: 12, userData: undefined}
     if (o === undefined) return r
     r.saveAttributes = o.saveAttributes !== undefined ? o.saveAttributes : true
     r.saveGeometry   = o.saveGeometry   !== undefined ? o.saveGeometry : true
     r.delimiter      = o.delimiter      !== undefined ? o.delimiter : ' '
     r.fixed          = o.fixed          !== undefined ? o.fixed : undefined
+    r.userData       = o.userData
     return r
 }
 
@@ -69,6 +75,12 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
     if (positions === undefined) throw new Error('missing "positions" in dataframe')
 
     let buffer = ''
+
+    if (opts.userData !== undefined) {
+        for (const [key, value] of Object.entries(opts.userData)) {
+            buffer += `# ${key} ${value}`
+        }
+    }
 
     let attrs: Array<[string,Serie]> = []
     if (opts.saveAttributes) {

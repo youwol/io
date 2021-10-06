@@ -1,7 +1,7 @@
 # @youwol/io
 
 
-## Description
+## Documentation
 See the [online documentation](https://youwol.github.io/io/dist/docs/index.html).
 
 ## Use 
