@@ -1,4 +1,5 @@
 import { Serie, DataFrame } from "@youwol/dataframe"
+import { encodeUserData } from "../utils";
 
 const mapTensors = new Map<number, Array<string>>()
 mapTensors.set(3, ['x', 'y', 'z']);
@@ -74,13 +75,7 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
     const positions = df.series.positions
     if (positions === undefined) throw new Error('missing "positions" in dataframe')
 
-    let buffer = ''
-
-    if (opts.userData !== undefined) {
-        for (const [key, value] of Object.entries(opts.userData)) {
-            buffer += `# ${key} ${value}`
-        }
-    }
+    let buffer = encodeUserData(opts.userData)
 
     let attrs: Array<[string,Serie]> = []
     if (opts.saveAttributes) {

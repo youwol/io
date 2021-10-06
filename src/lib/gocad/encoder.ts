@@ -1,4 +1,5 @@
 import { Serie, DataFrame } from "@youwol/dataframe"
+import { encodeUserData } from '../utils'
 
 /**
  * @category Options
@@ -141,11 +142,7 @@ function encodeGocadObject(
         buffer = buffer.replace('no-name', df.userData.name)
     }
 
-    if (opts.userData !== undefined) {
-        for (const [key, value] of Object.entries(opts.userData)) {
-            buffer += `# ${key} ${value}`
-        }
-    }
+    buffer += encodeUserData(opts.userData)
 
     let attrs: Array<[string, Serie]> = []
 
