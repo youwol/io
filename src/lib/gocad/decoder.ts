@@ -1,4 +1,5 @@
 import { DataFrame, IArray, Serie, createTyped, append } from '@youwol/dataframe'
+import { vec } from '@youwol/math'
 import { collapse } from '../collapse'
 import { concatenate } from '../concatenate'
 import { trimAll } from '../utils'
@@ -9,7 +10,8 @@ import { trimAll } from '../utils'
  */
 export function decodeGocadVS(
     buffer: string,
-    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+    {shared=true, merge=true, repair=false}:
+    {shared?: boolean, merge?: boolean, repair?:boolean}={}): DataFrame[]
 {
     return loadGocadObject({
         buffer, 
@@ -19,7 +21,8 @@ export function decodeGocadVS(
         className: 'Pointset',
         extension: 'vs',
         shared,
-        merge
+        merge,
+        repair
     })
 }
 
@@ -29,7 +32,8 @@ export function decodeGocadVS(
  */
 export function decodeGocadPL(
     buffer: string,
-    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+    {shared=true, merge=true, repair=false}:
+    {shared?: boolean, merge?: boolean, repair?:boolean}={}): DataFrame[]
 {
     return loadGocadObject({
         buffer, 
@@ -39,7 +43,8 @@ export function decodeGocadPL(
         className: 'Polyline',
         extension: 'pl',
         shared,
-        merge
+        merge,
+        repair
     })
 }
 
@@ -49,7 +54,8 @@ export function decodeGocadPL(
  */
 export function decodeGocadTS(
     buffer: string,
-    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+    {shared=true, merge=true, repair=false}:
+    {shared?: boolean, merge?: boolean, repair?:boolean}={}): DataFrame[]
 {
     return loadGocadObject({
         buffer, 
@@ -59,7 +65,8 @@ export function decodeGocadTS(
         className: 'Surface',
         extension: 'ts',
         shared,
-        merge
+        merge,
+        repair
     })
 }
 
@@ -69,7 +76,8 @@ export function decodeGocadTS(
  */
 export function decodeGocadSO(
     buffer: string,
-    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
+    {shared=true, merge=true, repair=false}:
+    {shared?: boolean, merge?: boolean, repair?: boolean}={}): DataFrame[]
 {
     return loadGocadObject({
         buffer, 
@@ -79,14 +87,15 @@ export function decodeGocadSO(
         className: 'Volume',
         extension: 'so',
         shared,
-        merge
+        merge,
+        repair
     })
 }
 
 // ---------------------------------------------------------------------
 
 function loadGocadObject(
-    {buffer, keyword, separator, dimension, className, extension, shared, merge}:
+    {buffer, keyword, separator, dimension, className, extension, shared, merge, repair}:
     {
         buffer: string, 
         keyword: string, 
@@ -95,7 +104,8 @@ function loadGocadObject(
         className: string,
         extension: string,
         shared: boolean,
-        merge: boolean
+        merge: boolean,
+        repair: boolean
     }): DataFrame[]
 {
     let lines      = buffer.split('\n')
@@ -119,6 +129,9 @@ function loadGocadObject(
     for (let i = 0; i < lines.length; ++i) {
         let line = trimAll(lines[i])
         if (line.length === 0 || line.charAt(0) === '#') {
+            continue
+        }
+        if (line.length >= 2 && line.charAt(0) === '/' && line.charAt(1) === '/') {
             continue
         }
 
@@ -200,6 +213,7 @@ function loadGocadObject(
 
             // Initialize attributes and nbFlatAtributes
             if (nbFlatAttributes === -1) {
+                startIndex = parseInt(r[1]) // CHECK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (attrSizes.length === 0) {
                     for (let i=0; i<attrNames.length; ++i) attrSizes[i] = 1
                 }
@@ -219,9 +233,31 @@ function loadGocadObject(
         }
 
         if (haveIndices && r[0] === keyword) {
-            for (let i=0; i<dimension; ++i) {
-                indices.push(parseInt(r[1+i], 10) - startIndex)
+            if (repair === false) {
+                for (let i=0; i<dimension; ++i) {
+                    const j = parseInt(r[1+i], 10) - startIndex
+                    indices.push(j)
+                }
             }
+            else if (dimension === 3) {
+                let idx = []
+                for (let i=0; i<dimension; ++i) {
+                    const j = parseInt(r[1+i], 10) - startIndex
+                    idx.push(j)
+                }
+                const v1 = [positions[3*idx[0]], positions[3*idx[0]+1], positions[3*idx[0]+2]]
+                const v2 = [positions[3*idx[1]], positions[3*idx[1]+1], positions[3*idx[1]+2]]
+                const v3 = [positions[3*idx[2]], positions[3*idx[2]+1], positions[3*idx[2]+2]]
+                const V  = vec.cross(vec.create(v1, v2) as vec.Vector3, vec.create(v1, v3) as vec.Vector3)
+                const area = vec.norm(V)
+                if (area > 1e-12) {
+                    indices.push(...idx)
+                }
+                else {
+                    // Skip this triangle as it is degenerated
+                }
+            }
+
             continue
         }
     }
