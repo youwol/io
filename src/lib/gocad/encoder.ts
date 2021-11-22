@@ -181,16 +181,30 @@ Should be equal to 'positions' count (${positions.count}).\n`
                         n++
                         return buffer += name+' '
                     }
-                    for (let i=1; i<=serie.itemSize; ++i) {
-                        n++
-                        buffer += `${name}${i} `
+                    else if (serie.itemSize === 3) {
+                        n += 3
+                        return buffer += name+'x ' + name+'y ' + name+'z '
                     }
-                    return buffer
+                    else if (serie.itemSize === 6) {
+                        n += 3
+                        return buffer += name+'xx ' + name+'xy ' + name+'xz ' + name+'yy ' + name+'yz ' + name+'zz '
+                    }
+                    else if (serie.itemSize === 9) {
+                        n += 3
+                        return buffer += name+'xx ' + name+'xy ' + name+'xz ' + name+'yx ' + name+'yy ' + name+'yz ' + name+'zx ' + name+'zy ' + name+'zz '
+                    }
+                    else {
+                        for (let i=1; i<=serie.itemSize; ++i) {
+                            n++
+                            buffer += `${name}${i} `
+                        }
+                        return buffer
+                    }
                 })
-                buffer += '\nESIZES '
-                for (let i=0; i<n; ++i) {
-                    buffer += `1 `
-                }
+                // buffer += '\nESIZES '
+                // for (let i=0; i<n; ++i) {
+                //     buffer += `1 `
+                // }
                 buffer += '\n'
             }
         }
