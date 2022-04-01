@@ -170,3 +170,53 @@ test('test merge Gocad TS with same prop names but different itemSize', () => {
     expect(sol.series.a).toBeUndefined()
     expect(sol.series.b).toBeUndefined()
 })
+
+
+
+
+const bufferTS41 =
+`GOCAD TSurf 1
+HEADER {
+  name: test
+
+}      
+TFACE
+PROPERTIES a
+PVRTX 0 0 0 0 1
+PVRTX 1 1 0 0 2
+PVRTX 2 0 1 0 3
+PVRTX 3 1 1 0 3
+TRGL 0 1 2
+TRGL 0 2 3
+END`
+
+const bufferTS42 =
+`GOCAD TSurf 1
+HEADER {
+  name: test
+}
+PROPERTIES a
+PVRTX 0 3 0 1 6
+PVRTX 1 4 0 1 7
+PVRTX 2 3 1 1 8
+PVRTX 3 1 1 0 3
+TRGL 0 1 2
+TRGL 0 2 3
+END`
+
+test('test merge Gocad TS with prop', () => {
+    const t1 = decodeGocadTS(bufferTS41)[0]
+    const t2 = decodeGocadTS(bufferTS42)[0]
+
+    const sol = merge([t1, t2])
+
+    expect(sol.series.positions.count).toEqual(8)
+    expect(sol.series.indices.count).toEqual(4)
+    expect(sol.series.a).toBeDefined()
+    expect(sol.series.a.itemSize).toEqual(1)
+    expect(sol.series.a.count).toEqual(8)
+
+    console.log(sol.series.positions)
+    console.log(sol.series.indices)
+    console.log(sol.series.a)
+})

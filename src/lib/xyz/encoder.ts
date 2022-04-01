@@ -29,6 +29,8 @@ export type XYZEncodeOptions = {
      */
     fixed?: number,
 
+    expandAttributes: boolean, // true
+
     /**
      * Any user data (undefined by default)
      */
@@ -53,13 +55,19 @@ export function encodeXYZ(dfs: DataFrame[] | DataFrame, options: XYZEncodeOption
 // ------------------------------------------------------------------------
 
 const getXYZEncodeOptions = (o: XYZEncodeOptions): XYZEncodeOptions => {
-    const r = {saveAttributes: true, saveGeometry: true, delimiter: ' ', fixed: 12, userData: undefined}
+    const r = {saveAttributes: true, saveGeometry: true, delimiter: ' ', fixed: 12, expandAttributes: true, userData: undefined}
     if (o === undefined) return r
     r.saveAttributes = o.saveAttributes !== undefined ? o.saveAttributes : true
     r.saveGeometry   = o.saveGeometry   !== undefined ? o.saveGeometry : true
     r.delimiter      = o.delimiter      !== undefined ? o.delimiter : ' '
     r.fixed          = o.fixed          !== undefined ? o.fixed : undefined
     r.userData       = o.userData
+
+    if (o.expandAttributes !== undefined && o.expandAttributes === false) {
+        console.warn('WARNING: XYZEncodeOptions.expandAttributes is not active yet for the xyz format')
+    }
+    //r.expandAttributes = o.expandAttributes !== undefined ? o.expandAttributes : true
+
     return r
 }
 
@@ -91,24 +99,32 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
         if (attrs.length > 0) {
             buffer += '# x y z '
             //attrs.forEach( ([name, _]) => buffer += name+' ' )
-            attrs.forEach( ([name, serie]) => {
-                if (serie.itemSize === 1) {
-                    buffer += `${name} `
-                }
-                else {
-                    const names = mapTensors.get(serie.itemSize)
-                    if (names === undefined) {
-                        for (let j=0; j<serie.itemSize; ++j) {
-                            buffer += `${name}${j} `
-                        }
+            if (opts.expandAttributes === false) {
+                attrs.forEach( ([name, _]) => buffer += name+' ' )
+                buffer += '\n# SIZES '
+                attrs.forEach( ([_, serie]) => buffer += serie.itemSize+' ' )
+                buffer += '\n'
+            }
+            else {
+                attrs.forEach( ([name, serie]) => {
+                    if (serie.itemSize === 1) {
+                        buffer += `${name} `
                     }
                     else {
-                        names.forEach( n => {
-                            buffer += `${name}${n} `
-                        })
+                        const names = mapTensors.get(serie.itemSize)
+                        if (names === undefined) {
+                            for (let j=0; j<serie.itemSize; ++j) {
+                                buffer += `${name}${j} `
+                            }
+                        }
+                        else {
+                            names.forEach( n => {
+                                buffer += `${name}${n} `
+                            })
+                        }
                     }
-                }
-            })
+                })
+            }
             buffer += '\n'
 
             // buffer += '# sizes '

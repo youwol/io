@@ -1,8 +1,8 @@
 import { createTyped, DataFrame, Serie } from "@youwol/dataframe"
 
 type Key = {
-    nbr: number,
-    count: number,
+    nbr     : number,
+    count   : number,
     itemSize: number
 }
 
@@ -23,31 +23,33 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
     if (dataframes.length === 0) throw new Error('no dataframe provided')
     if (dataframes.length === 1) return dataframes[0]
 
-    const names: {[key:string]: Key} = {}
+    const keys: {[key:string]: Key} = {}
     dataframes.forEach( df => {
-        for (const [key, value] of Object.entries(df.series)) {
-            if (names[key] !== undefined) {
-                if (value.count === names[key].count && value.itemSize === names[key].itemSize ) {
-                    names[key].nbr++
+        for (const [name, serie] of Object.entries(df.series)) {
+            const entry = keys[name]
+            if (entry !== undefined) {
+                if (/*serie.count === entry.count &&*/ serie.itemSize === entry.itemSize ) {
+                    entry.nbr++
                 }
             }
             else {
-                names[key] = {
-                    nbr: 1,
-                    count: value.count,
-                    itemSize: value.itemSize
+                keys[name] = {
+                    nbr     : 1,
+                    count   : serie.count,
+                    itemSize: serie.itemSize
                 }
             }
         }
     })
+
     const candidates: string[] = []
-    for (const [key, value] of Object.entries(names)) {
-        if (value.nbr === dataframes.length) {
-            candidates.push(key)
+    for (const [name, key] of Object.entries(keys)) {
+        if (key.nbr === dataframes.length) {
+            candidates.push(name)
         }
     }
 
-    const df = DataFrame.create( { series: {} } )
+    const df = DataFrame.create({ series: {} })
     candidates.forEach( name => {
         const series = gatherSeries(dataframes, name)
         if (series) df.series[name] = mergeSeries( series )
@@ -85,27 +87,35 @@ function gatherSeries(dfs: DataFrame[], name: string): Serie[] {
     return series
 }
 
-function mergeSeries(s: Serie[]): Serie {
-    if (s.length===0) throw new Error('no series provided')
-    if (s.length===1) return s[0]
+function mergeSeries(series: Serie[]): Serie {
+    if (series.length===0) throw new Error('no series provided')
+    if (series.length===1) return series[0]
 
-    // check sizes and itemsizes
-    let ok         = true
-    const count    = s[0].count
-    const itemSize = s[0].itemSize
-    s.forEach( serie => ok  = ok && (serie.count === count && serie.itemSize === itemSize) )
+    // check itemsizes
+    const itemSize = series[0].itemSize
+    const ok = series.reduce( (cur, serie) => cur && (serie.itemSize === itemSize), true )
+    if (!ok) {
+        throw new Error("Series don't have the same count or itemSize")
+    }
 
-    if (!ok) throw new Error("Series don't have the same count or itemSize")
-
-    const n  = s[0].array.length
-    const nn = n*s.length
-    const array = new Array(nn).fill(0)
+    const N = series.reduce( (cur, serie) => cur+serie.count, 0) * itemSize
+    const array = new Array(N).fill(0)
     let id = 0
-    s.forEach( serie => {
-        for (let i=0; i<n; ++i) {
+    series.forEach( serie => {
+        for (let i=0; i<serie.array.length; ++i) {
             array[id++] = serie.array[i]
         }
     })
+
+    // const n  = series[0].array.length
+    // const nn = n*series.length
+    // const array = new Array(nn).fill(0)
+    // let id = 0
+    // series.forEach( serie => {
+    //     for (let i=0; i<n; ++i) {
+    //         array[id++] = serie.array[i]
+    //     }
+    // })
     
-    return Serie.create({array, itemSize: s[0].itemSize})
+    return Serie.create({array, itemSize})
 }

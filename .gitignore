@@ -13,3 +13,6 @@ dist/tests
 dist/dataframe
 dist/geometry
 dist/math
+
+cdn.zip
+**/.DS_Store
