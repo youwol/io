@@ -1,3 +1,4 @@
+import { minMax } from "@youwol/math"
 import { decodeGocadTS, merge } from "../lib"
 
 const bufferTS1 =
@@ -88,6 +89,17 @@ test('test merge Gocad TS with prop', () => {
     expect(sol.series.a).toBeDefined()
     expect(sol.series.a.itemSize).toEqual(1)
     expect(sol.series.a.count).toEqual(6)
+})
+
+test('test merge Gocad TS with prop min/max', () => {
+  const t1 = decodeGocadTS(bufferTS11)
+  const t2 = decodeGocadTS(bufferTS12)
+
+  const sol = merge([...t1, ...t2])
+
+  const m = minMax(sol.series.a)
+  expect(m[0]).toEqual(1)
+  expect(m[1]).toEqual(8)
 })
 
 

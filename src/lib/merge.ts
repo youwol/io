@@ -11,12 +11,14 @@ type Key = {
  * of the topological elements if any (combinatorial elements of dim > 1, i.e., meshes lines,
  * meshed surfaces, meshed volumes).
  * Also, attributes (other series) are merged as well if and only if they have the same
- * count and itemSize.
+ * name and itemSize.
  * @example
  * ```ts
- * const t1 = decodeGocadTS(bufferTS1)[0]
- * const t2 = decodeGocadTS(bufferTS2)[0]
- * const t3 = merge([t1, t2])
+ * import { decodeGocadTS, merge } from '@youwol/io'
+ * 
+ * const t1 = decodeGocadTS(bufferTS1)
+ * const t2 = decodeGocadTS(bufferTS2)
+ * const t3 = merge([...t1, ...t2])
  * ```
  */
 export const merge = (dataframes: DataFrame[]): DataFrame => {
@@ -95,7 +97,7 @@ function mergeSeries(series: Serie[]): Serie {
     const itemSize = series[0].itemSize
     const ok = series.reduce( (cur, serie) => cur && (serie.itemSize === itemSize), true )
     if (!ok) {
-        throw new Error("Series don't have the same count or itemSize")
+        throw new Error("Series don't have the same itemSize")
     }
 
     const N = series.reduce( (cur, serie) => cur+serie.count, 0) * itemSize
@@ -106,16 +108,6 @@ function mergeSeries(series: Serie[]): Serie {
             array[id++] = serie.array[i]
         }
     })
-
-    // const n  = series[0].array.length
-    // const nn = n*series.length
-    // const array = new Array(nn).fill(0)
-    // let id = 0
-    // series.forEach( serie => {
-    //     for (let i=0; i<n; ++i) {
-    //         array[id++] = serie.array[i]
-    //     }
-    // })
     
     return Serie.create({array, itemSize})
 }
