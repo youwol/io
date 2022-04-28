@@ -26,12 +26,14 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
     if (dataframes.length === 1) return dataframes[0]
 
     const keys: {[key:string]: Key} = {}
+
     dataframes.forEach( df => {
         for (const [name, serie] of Object.entries(df.series)) {
             const entry = keys[name]
             if (entry !== undefined) {
                 if (/*serie.count === entry.count &&*/ serie.itemSize === entry.itemSize ) {
                     entry.nbr++
+                    entry.count += serie.count
                 }
             }
             else {
@@ -43,6 +45,8 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
             }
         }
     })
+
+    // console.log(keys)
 
     const candidates: string[] = []
     for (const [name, key] of Object.entries(keys)) {

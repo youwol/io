@@ -26,15 +26,21 @@ const fs     = require('fs')
 // fs.writeFileSync('/Users/fmaerten/tmp/galapagos/all-dykes.pl', io.encodeGocadPL(allLines), 'utf8', err => {})
 
 
-
-const surfaces = io.decodeGocadTS( fs.readFileSync('/Users/fmaerten/tmp/galapagos/simulations-grid.ts', 'utf8') )
-const map = new Map()
-surfaces.forEach( surface => {
-    for (const [name, serie] of Object.entries(surface.series)) {
-        if (name[name] === undefined) map.set(name, 0)
-        map.set(name, serie.count + map.get(name))
-    }
-})
-
+const filename = '/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700.ts'
+const surfaces = io.decodeGocadTS( fs.readFileSync(filename, 'utf8') )
 const surface = io.merge(surfaces)
-fs.writeFileSync('/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-one-object.ts', io.encodeGocadTS(surface), 'utf8', err => {})
+console.log(surface)
+
+
+fs.writeFileSync('/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700-merged.ts', io.encodeGocadTS(surface), 'utf8', err => {})
+
+
+
+
+// const map = new Map()
+// surfaces.forEach( surface => {
+//     for (const [name, serie] of Object.entries(surface.series)) {
+//         if (name[name] === undefined) map.set(name, 0)
+//         map.set(name, serie.count + map.get(name))
+//     }
+// })
