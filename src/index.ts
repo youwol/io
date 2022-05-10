@@ -4,6 +4,7 @@ import {
     decodeGocadTS, 
     decodeGocadVS, 
     decodeOBJ, 
+    decodeOFF, 
     decodeSTL, 
     decodeXYZ, 
     encodeGocadPL, 
@@ -11,6 +12,7 @@ import {
     encodeGocadTS, 
     encodeGocadVS, 
     encodeOBJ, 
+    encodeOFF, 
     encodeSTL, 
     encodeXYZ
 } from './lib'
@@ -70,6 +72,7 @@ IOFactory.registerFilter( 'gcd', {encode: encodeGocadTS, decode: decodeGocadTS, 
 IOFactory.registerFilter( 'so' , {encode: encodeGocadSO, decode: decodeGocadSO, vendor: 'Gocad-team', name: 'gocad-volume'} )
 IOFactory.registerFilter( 'xyz', {encode: encodeXYZ, decode: decodeXYZ, vendor: 'none', name: 'pointset'} )
 IOFactory.registerFilter( 'obj', {encode: encodeOBJ, decode: decodeOBJ, vendor: 'Wavefront Technologies', name: 'wavefront'} )
+IOFactory.registerFilter( 'off', {encode: encodeOFF, decode: decodeOFF, vendor: 'Geomview', name: 'object-file-format'} )
 IOFactory.registerFilter( 'stl', {encode: encodeSTL, decode: decodeSTL, vendor: 'Albert Consulting Group', name: 'stl'} )
 
 // ------------------------------------------------------------
