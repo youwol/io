@@ -44,6 +44,23 @@ VRTX 2 0 1 0
 TRGL 0 1 2
 END`
 
+const bufferTS3 =
+`GOCAD TSurf 1
+HEADER {
+  name: test
+}
+PROPERTIES a
+PVRTX 0 0 0 0 1
+PVRTX 1 1 0 0 2
+PVRTX 2 0 1 0 3
+TRGL 0 1 2
+TFACE
+PVRTX 3 0 0 0 4
+PVRTX 4 1 0 0 5
+PVRTX 5 0 1 0 6
+TRGL 3 4 5
+END`
+
 test('test 1 decode Gocad TS', () => {
     const tss = decodeGocadTS(bufferTS1)
     expect(tss.length).toEqual(2)
@@ -160,6 +177,17 @@ test('test 2 decode Gocad TS', () => {
         const a = ts.series.indices
         a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
     }
+})
+
+test('test 3 decode Gocad TS', () => {
+    const tss = decodeGocadTS(bufferTS3)
+    expect(tss.length).toEqual(2)
+
+    tss.forEach( ts => {
+        expect(ts.series.positions.count).toEqual(3)
+        expect(ts.series.a.count).toEqual(3)
+        expect(ts.series.indices.count).toEqual(1)
+    })
 })
 
 test('test decode Gocad Galapagos with many stresses and displs', () => {

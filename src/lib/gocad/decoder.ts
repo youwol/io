@@ -160,7 +160,7 @@ function loadGocadObject(
             if (object) objects.push( object )
 
             // Use the same attributes
-            attributes.forEach( array => array = [] )
+            attributes = attributes.map( _ => [] )
             positions  = []
             indices    = []
             startIndex = nbVertices // DO NOT reset the increment of the indices for components
