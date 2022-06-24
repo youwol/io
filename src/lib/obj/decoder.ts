@@ -1,6 +1,9 @@
 import { createTyped, DataFrame, Serie } from "@youwol/dataframe"
 import { merge as mergeDfs } from '../merge'
 
+/**
+ * @category Decoder
+ */
 export function decodeOBJ(
     buffer: string,
     {shared=true, merge=true}:

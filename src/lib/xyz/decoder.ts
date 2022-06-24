@@ -30,7 +30,7 @@ export function decodeXYZ(
     const extension = 'xyz'
 
     // /**
-    //  * @erturns Array of objects which are define as:
+    //  * @return Array of objects which are define as:
     //  * <ul>
     //  * <li> for a cube    : `{mng: AttributeManager, className: string, min: [0,0,0], max: [0,0,0], dims: [0,0,0]}`
     //  * <li> for a pointset: `{mng: AttributeManager, className: string, min: [0,0,0], max: [0,0,0]}`
@@ -42,7 +42,7 @@ export function decodeXYZ(
     //let attrSizes : number[]   = []
     let positions : number[]   = []  
     let objects    = []
-    let haveZ      = 0
+    let haveZ      = 1
 
     const impliciteName = 'ImpliciteCube'
     
@@ -98,6 +98,11 @@ export function decodeXYZ(
             }
 
             if (r[1] !== 'x' && r[2] !== 'y') { // comment
+                continue
+            }
+
+            if (r[1] === 'x' && r[2] === 'y' && r.length === 2) {
+                haveZ = 0
                 continue
             }
 

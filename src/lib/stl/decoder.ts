@@ -23,6 +23,8 @@ import { createTyped, DataFrame, Serie } from "@youwol/dataframe"
  * @param buffer 
  * @param param1 
  * @returns 
+ * 
+ * @category Decoder
  */
 export function decodeSTL(
     buffer: string | ArrayBufferLike,

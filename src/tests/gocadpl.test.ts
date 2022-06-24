@@ -20,7 +20,7 @@ test('test decode Gocad TS', () => {
     expect(tss.length).toEqual(1) // 1 line
 
     const ts = tss[0]
-    //console.log( info(ts) )
+    console.log( ts )
 
     expect(ts.series.positions).toBeDefined()
     expect(ts.series.positions.count).toEqual(3)

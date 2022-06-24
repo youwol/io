@@ -7,6 +7,8 @@ import {
     decodeOFF, 
     decodeSTL, 
     decodeXYZ, 
+    decoderDXF,
+    decoderSVG,
     encodeGocadPL, 
     encodeGocadSO, 
     encodeGocadTS, 
@@ -14,7 +16,9 @@ import {
     encodeOBJ, 
     encodeOFF, 
     encodeSTL, 
-    encodeXYZ
+    encodeXYZ,
+    encodeDXF,
+    encodeSVG
 } from './lib'
 
 
@@ -74,9 +78,11 @@ IOFactory.registerFilter( 'xyz', {encode: encodeXYZ, decode: decodeXYZ, vendor: 
 IOFactory.registerFilter( 'obj', {encode: encodeOBJ, decode: decodeOBJ, vendor: 'Wavefront Technologies', name: 'wavefront'} )
 IOFactory.registerFilter( 'off', {encode: encodeOFF, decode: decodeOFF, vendor: 'Geomview', name: 'object-file-format'} )
 IOFactory.registerFilter( 'stl', {encode: encodeSTL, decode: decodeSTL, vendor: 'Albert Consulting Group', name: 'stl'} )
+IOFactory.registerFilter( 'dxf', {encode: encodeDXF, decode: decoderDXF, vendor: 'Drawing eXchange Format', name: 'dxf'} )
+IOFactory.registerFilter( 'svg', {encode: encodeSVG, decode: decoderSVG, vendor: 'Scalable Vector Graphics', name: 'svg'} )
 
 // ------------------------------------------------------------
 
-function getExtension(filename: string) {
+export function getExtension(filename: string) {
     return filename.substring(filename.lastIndexOf('.') + 1)
 }
