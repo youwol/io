@@ -1,7 +1,7 @@
 
 /**
- * Concatenate an array of attributes withf itemSize=1 into one with itemSize=number of attributes
- * @param mat 
+ * Concatenate an array of attributes with itemSize=1 into one with itemSize=number of attributes
+ * @category Utils
  */
 export const concatenate = (mat: number[][]) => {
     const itemSize = mat.length

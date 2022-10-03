@@ -20,6 +20,8 @@ type Key = {
  * const t2 = decodeGocadTS(bufferTS2)
  * const t3 = merge([...t1, ...t2])
  * ```
+ * 
+ * @category Utils
  */
 export const merge = (dataframes: DataFrame[]): DataFrame => {
     if (dataframes.length === 0) throw new Error('no dataframe provided')

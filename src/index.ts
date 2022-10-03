@@ -83,6 +83,28 @@ IOFactory.registerFilter( 'svg', {encode: encodeSVG, decode: decoderSVG, vendor:
 
 // ------------------------------------------------------------
 
+/**
+ * Get the extension of a filename
+ * @example
+ * ```js
+ * const e = getExtension('myfile.ts') // return 'ts'
+ * ```
+ * 
+ * @category Utils
+ */
 export function getExtension(filename: string) {
     return filename.substring(filename.lastIndexOf('.') + 1)
+}
+
+/**
+ * Get the base name of a filename, i.e., the name without the extension
+ * @example
+ * ```js
+ * const e = getExtension('myfile.ts') // return 'myfile'
+ * ```
+ * 
+ * @category Utils
+ */
+export function getBaseName(filename: string) {
+    return filename.substring(0, filename.lastIndexOf('.'))
 }

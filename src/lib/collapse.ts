@@ -27,6 +27,8 @@ import { concatenate } from "./concatenate"
  * @param attrNames The attribute names (array)
  * @param attributes The attributes (flat arrays)
  * @returns flat arrays of collapsed attributes
+ * 
+ * @category Utils
  */
 export function collapse(attrNames: string[], attributeArrays: number[][]) {
 
