@@ -16,7 +16,6 @@
     "publish-npm-public": "yarn build:prod && yarn test-coverage && yarn publish --access public"
   },
   "dependencies": {
-    "@youwol/io": "0.0.20"
   },
   "peerDependencies": {
     "@youwol/dataframe": "0.x"
