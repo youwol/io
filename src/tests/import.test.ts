@@ -1,13 +1,13 @@
-import * as fs from 'file-system'
+import { readFileSync } from 'fs'
 
 import { decodeGocadTS }             from '../lib/gocad/decoder'
 import { fittingPlane, triangulate } from '@youwol/geometry'
 //import { info, DataFrame }           from '@youwol/dataframe'
 
-test('fake test', () => {
-    const data = fs.readFileSync('./src/tests/s1.gcd', 'utf8')
+test('import test', () => {
+    const data = readFileSync('./src/tests/s1.gcd', 'utf8')
     const dfs = decodeGocadTS( data )
-    
+
     dfs.forEach( d => {
         dfs.forEach( (d, i) => {
             console.log( "Surface", i+1 )
@@ -23,4 +23,3 @@ test('fake test', () => {
     console.log( surface.series.positions )
     console.log( surface.series.indices )
 })
-
