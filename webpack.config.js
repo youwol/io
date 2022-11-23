@@ -31,7 +31,9 @@ module.exports = {
         //     commonjs2:'rxjs/operators',
         //     root:['rxjs','operators']
         // },
-        '@youwol/dataframe': "@youwol/dataframe"
+        '@youwol/dataframe': "@youwol/dataframe",
+        '@youwol/geometry': "@youwol/geometry",
+        '@youwol/math': "@youwol/math"
     }],
     module: {
         rules: [
