@@ -880,20 +880,20 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@youwol/dataframe@0.x":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.31.tgz#0da3f46309a920c4d63d429411cdda45ff35ada7"
-  integrity sha512-QvKcx3r/FdXeqMl5ybZAFm3EaH3c+hnsD7DOlHxNIumx1zYXh9RkB73tNVrrJniLBdhGQXUFMu3xcKVoZXr+VA==
+"@youwol/dataframe@0.0.37":
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/@youwol/dataframe/-/dataframe-0.0.37.tgz#4bf388c231d335beb2d2628684be10283110d5f7"
+  integrity sha512-FrjK6zeAyN+JsXsCv3dfpDciJw4GHaOtYoFyoQUOZd8oV2GASZ5x3N2oi2l7O0lharXX+dcaMina97yOaEDXjA==
 
-"@youwol/geometry@0.x":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@youwol/geometry/-/geometry-0.0.11.tgz#320f06c7db25fd7ae4838941d8b3e19199875575"
-  integrity sha512-NjY6MSJ23LX8fEN0S5tuYSMtWZaZ+zRI4CeD1OkPP2EIWk15Zku5FuWdWsWjgaKkxSU5Orxc20bn/kGt7QjncA==
+"@youwol/geometry@0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@youwol/geometry/-/geometry-0.0.21.tgz#820f76a69e6d1cb6b9392520aba64b326e042047"
+  integrity sha512-SZI1z9iOTmqaG4HPUueC+Vh4/LDpI4AKUOy1l3jSa64MOBUOi3get64hx3nBrQL6D1vQcy48tSmpbqJ8J6cUVg==
 
-"@youwol/math@0.x":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.18.tgz#dc825c664b8edec3b19a2b7170183ec816bed268"
-  integrity sha512-yNFHXTM9GOK7hnl9ZbUuMojIptrbzsOou53xIUt4yl+2w15Y7KYnS7BSRrEWfmTtk8auejdd8z5ATy/HfEJo6g==
+"@youwol/math@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@youwol/math/-/math-0.0.26.tgz#637cb282d1a25595232e4413de91eb30d14ad2b7"
+  integrity sha512-xlYHfqj8+vfMBIbtBREZi6gZ6Ypuosbthg9+XNlML1hzSbtV59NjumSVK3jzN/HP/T6CluXZQJ5NFaP/Ex+TGQ==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
