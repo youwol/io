@@ -1,4 +1,3 @@
-import { info } from '@youwol/dataframe'
 import { decodeGocadPL } from '../lib'
 
 const bufferPL = `GOCAD Pline 1
@@ -14,17 +13,17 @@ SEG 0 1
 SEG 1 2
 END`
 
-test('test decode Gocad TS', () => {
+test('decode Gocad TS', () => {
     const tss = decodeGocadPL(bufferPL)
-    expect(tss.length).toEqual(1) // 1 line
+    expect(tss).toHaveLength(1) // 1 line
 
     const ts = tss[0]
     console.log(ts)
 
     expect(ts.series.positions).toBeDefined()
-    expect(ts.series.positions.count).toEqual(3)
-    expect(ts.series.indices.count).toEqual(2)
-    expect(ts.series.a.count).toEqual(3)
+    expect(ts.series.positions.count).toBe(3)
+    expect(ts.series.indices.count).toBe(2)
+    expect(ts.series.a.count).toBe(3)
 
     {
         const sa = [1, 4, 9]
@@ -76,9 +75,9 @@ SEG 0 1
 SEG 1 2
 END`
 
-test('test decode Gocad TS x2', () => {
+test('decode Gocad TS x2', () => {
     const tss = decodeGocadPL(bufferPL2)
-    expect(tss.length).toEqual(2) // 2 different lines
+    expect(tss).toHaveLength(2) // 2 different lines
 })
 
 const bufferPL3 = `GOCAD PLine 1
@@ -137,9 +136,9 @@ SEG 22 23
 SEG 23 24
 END`
 
-test('test decode Gocad TS components', () => {
+test('decode Gocad TS components', () => {
     const tss = decodeGocadPL(bufferPL3)
-    expect(tss.length).toEqual(4) // 4 different lines
+    expect(tss).toHaveLength(4) // 4 different lines
 
     const nv = [5, 7, 9, 4]
     const ns = [4, 6, 8, 3]

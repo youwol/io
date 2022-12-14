@@ -31,7 +31,7 @@ export type DxfReturnType = [number, number, number, number][]
  * @category Decoder
  */
 export function decoderDXF(buffer: string): Serie {
-    let lines = buffer.split('\n')
+    const lines = buffer.split('\n')
 
     const segments: Array<number> = []
 
@@ -43,7 +43,7 @@ export function decoderDXF(buffer: string): Serie {
             }
             const line = lines[i++]
             if (line.length !== 0) {
-                let r = line.split(' ')
+                const r = line.split(' ')
                 if (r.length !== 0) {
                     return r
                 }
@@ -52,7 +52,7 @@ export function decoderDXF(buffer: string): Serie {
     }
 
     while (true) {
-        let r = nextLine()
+        const r = nextLine()
         if (r === undefined) {
             break
         }

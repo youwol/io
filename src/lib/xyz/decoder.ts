@@ -1,10 +1,4 @@
-import {
-    append,
-    Serie,
-    createTyped,
-    DataFrame,
-    IArray,
-} from '@youwol/dataframe'
+import { append, Serie, createTyped, DataFrame } from '@youwol/dataframe'
 import { collapse } from '../collapse'
 import { trimAll } from '../utils'
 
@@ -42,23 +36,23 @@ export function decodeXYZ(
     //  * <li> for a pointset: `{mng: AttributeManager, className: string, min: [0,0,0], max: [0,0,0]}`
     //  * </ul>
     //  */
-    let lines = buffer.split('\n')
+    const lines = buffer.split('\n')
     let attributes: number[][] = []
     let attrNames: string[] = []
     //let attrSizes : number[]   = []
     let positions: number[] = []
-    let objects = []
+    const objects = []
     let haveZ = 1
 
     const impliciteName = 'ImpliciteCube'
 
     for (let i = 0; i < lines.length; ++i) {
-        let line = trimAll(lines[i].trim())
+        const line = trimAll(lines[i].trim())
         if (line.length === 0) {
             continue
         }
 
-        let r = line.split(' ')
+        const r = line.split(' ')
         if (r.length === 0) {
             continue
         }
@@ -167,9 +161,9 @@ export function decodeXYZ(
 
         if (r.length >= 2 + haveZ) {
             // min is (x,y)
-            let x = parseFloat(r[0])
-            let y = parseFloat(r[1])
-            let z = haveZ ? parseFloat(r[2]) : 0
+            const x = parseFloat(r[0])
+            const y = parseFloat(r[1])
+            const z = haveZ ? parseFloat(r[2]) : 0
             positions.push(x, y, z)
 
             if (attributes.length !== r.length - (2 + haveZ)) {
@@ -223,14 +217,16 @@ function createObject({
     extension: string
     merge: boolean
 }): DataFrame {
-    if (positions.length === 0) return undefined
+    if (positions.length === 0) {
+        return undefined
+    }
 
-    let userData = {
+    const userData = {
         className,
         extension,
         attributeNames: attrNames,
     }
-    let posSerie = Serie.create({
+    const posSerie = Serie.create({
         array: createTyped<Float32Array>(Float32Array, positions, shared),
         itemSize: 3,
     })

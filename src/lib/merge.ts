@@ -24,8 +24,12 @@ type Key = {
  * @category Utils
  */
 export const merge = (dataframes: DataFrame[]): DataFrame => {
-    if (dataframes.length === 0) throw new Error('no dataframe provided')
-    if (dataframes.length === 1) return dataframes[0]
+    if (dataframes.length === 0) {
+        throw new Error('no dataframe provided')
+    }
+    if (dataframes.length === 1) {
+        return dataframes[0]
+    }
 
     const keys: { [key: string]: Key } = {}
 
@@ -62,7 +66,9 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
     const df = DataFrame.create({ series: {} })
     candidates.forEach((name) => {
         const series = gatherSeries(dataframes, name)
-        if (series) df.series[name] = mergeSeries(series)
+        if (series) {
+            df.series[name] = mergeSeries(series)
+        }
     })
 
     // Doing indices again since it is a special case
@@ -72,8 +78,9 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
         let startIndex = 0
         dataframes.forEach((dataframe, i) => {
             const triangles = dataframe.series.indices
-            if (triangles === undefined)
+            if (triangles === undefined) {
                 throw new Error('objects in dataframes are in different types')
+            }
             triangles.forEach((t) => {
                 faces.push(...t.map((v) => v + startIndex))
             })
@@ -92,7 +99,9 @@ function gatherSeries(dfs: DataFrame[], name: string): Serie[] {
     const series: Serie[] = []
     dfs.forEach((df, i) => {
         const s = df.series[name]
-        if (s === undefined) return undefined //throw new Error(`Serie ${name} does not exist in dataframe index ${i}`)
+        if (s === undefined) {
+            return undefined
+        } //throw new Error(`Serie ${name} does not exist in dataframe index ${i}`)
         series.push(s)
     })
 
@@ -100,8 +109,12 @@ function gatherSeries(dfs: DataFrame[], name: string): Serie[] {
 }
 
 function mergeSeries(series: Serie[]): Serie {
-    if (series.length === 0) throw new Error('no series provided')
-    if (series.length === 1) return series[0]
+    if (series.length === 0) {
+        throw new Error('no series provided')
+    }
+    if (series.length === 1) {
+        return series[0]
+    }
 
     // check itemsizes
     const itemSize = series[0].itemSize

@@ -21,7 +21,7 @@ export function encodeSVG(
         precision = 2,
     }: { scale?: number; translate?: [number, number]; precision?: number },
 ): string {
-    let buffer: string = `<svg width="100" height="100">\n`
+    let buffer = `<svg width="100" height="100">\n`
     const point = (p) => `${p[0].toFixed(precision)} ${p[1].toFixed(precision)}`
 
     const doit = (df, positions) => {
@@ -84,14 +84,26 @@ function normalize(
         dfs.forEach((df) => {
             const is3D = df.series.positions.itemSize === 3
             const m = minMax(df.series.positions)
-            if (m[0] < xmin) xmin = m[0]
-            if (m[1] < ymin) ymin = m[1]
+            if (m[0] < xmin) {
+                xmin = m[0]
+            }
+            if (m[1] < ymin) {
+                ymin = m[1]
+            }
             if (is3D) {
-                if (m[3] > xmax) xmax = m[3]
-                if (m[4] > ymax) ymax = m[4]
+                if (m[3] > xmax) {
+                    xmax = m[3]
+                }
+                if (m[4] > ymax) {
+                    ymax = m[4]
+                }
             } else {
-                if (m[2] > xmax) xmax = m[2]
-                if (m[3] > ymax) ymax = m[3]
+                if (m[2] > xmax) {
+                    xmax = m[2]
+                }
+                if (m[3] > ymax) {
+                    ymax = m[3]
+                }
             }
         })
 

@@ -8,7 +8,9 @@ export const concatenate = (mat: number[][]) => {
     const a = new Array(n * itemSize).fill(0)
     let k = 0
     for (let j = 0; j < n; ++j) {
-        for (let i = 0; i < itemSize; ++i) a[k++] = mat[i][j]
+        for (let i = 0; i < itemSize; ++i) {
+            a[k++] = mat[i][j]
+        }
     }
     return a
 }

@@ -164,8 +164,9 @@ function encodeGocadObject({
     const opts = getGocadEncodeOptions(options)
 
     const positions = df.series.positions
-    if (positions === undefined)
+    if (positions === undefined) {
         throw new Error('missing "positions" in dataframe')
+    }
 
     const indices = df.series.indices
 
@@ -177,14 +178,14 @@ function encodeGocadObject({
 
     buffer += encodeUserData(opts.userData)
 
-    let attrs: Array<[string, Serie]> = []
+    const attrs: Array<[string, Serie]> = []
 
     // Do the properties
     if (opts.saveAttributes) {
         Object.entries(df.series).forEach(([name, serie]: [string, Serie]) => {
             if (name !== 'positions' && name !== 'indices') {
                 if (serie.count !== positions.count) {
-                    let msg = `attribute count mistmatch for '${name}' (got ${serie.count}).
+                    const msg = `attribute count mistmatch for '${name}' (got ${serie.count}).
 Should be equal to 'positions' count (${positions.count}).\n`
                     if (serie.count === indices.count) {
                         throw new Error(
@@ -275,10 +276,11 @@ Should be equal to 'positions' count (${positions.count}).\n`
     if (opts.saveGeometry) {
         positions.forEach((item, i) => {
             buffer += `${suffix}  ${i} ${item.join(' ')} `
-            if (opts.saveAttributes)
+            if (opts.saveAttributes) {
                 attrs.forEach(
                     ([_, serie]) => (buffer += `${toString(serie.itemAt(i))} `),
                 )
+            }
             buffer += '\n'
         })
     }

@@ -110,7 +110,9 @@ export function collapse(attrNames: string[], attributeArrays: number[][]) {
         if (
             !(() => {
                 for (let i = 0; i < tensors.length; ++i) {
-                    if (perform(name, tensors[i])) return true
+                    if (perform(name, tensors[i])) {
+                        return true
+                    }
                 }
                 return false
             })()

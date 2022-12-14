@@ -190,14 +190,18 @@ function isBinary(data: any) {
     const solid = [115, 111, 108, 105, 100]
 
     for (let off = 0; off < 5; off++) {
-        if (matchDataViewAt(solid, reader, off)) return false
+        if (matchDataViewAt(solid, reader, off)) {
+            return false
+        }
     }
     return true
 }
 
 function matchDataViewAt(query, reader, offset) {
     for (let i = 0, il = query.length; i < il; i++) {
-        if (query[i] !== reader.getUint8(offset + i)) return false
+        if (query[i] !== reader.getUint8(offset + i)) {
+            return false
+        }
     }
     return true
 }

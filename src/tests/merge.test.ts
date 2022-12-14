@@ -23,14 +23,14 @@ VRTX 2 3 1 1
 TRGL 0 1 2
 END`
 
-test('test merge Gocad TS', () => {
+test('merge Gocad TS', () => {
     const t1 = decodeGocadTS(bufferTS1)[0]
     const t2 = decodeGocadTS(bufferTS2)[0]
 
     const sol = merge([t1, t2])
 
-    expect(sol.series.positions.count).toEqual(6)
-    expect(sol.series.indices.count).toEqual(2)
+    expect(sol.series.positions.count).toBe(6)
+    expect(sol.series.indices.count).toBe(2)
 
     const V = [0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0, 1, 4, 0, 1, 3, 1, 1]
     sol.series.positions.array.forEach((v, i) => expect(v).toEqual(V[i]))
@@ -63,28 +63,28 @@ PVRTX 2 3 1 1 8
 TRGL 0 1 2
 END`
 
-test('test merge Gocad TS with prop', () => {
+test('merge Gocad TS with prop', () => {
     const t1 = decodeGocadTS(bufferTS11)[0]
     const t2 = decodeGocadTS(bufferTS12)[0]
 
     const sol = merge([t1, t2])
 
-    expect(sol.series.positions.count).toEqual(6)
-    expect(sol.series.indices.count).toEqual(2)
+    expect(sol.series.positions.count).toBe(6)
+    expect(sol.series.indices.count).toBe(2)
     expect(sol.series.a).toBeDefined()
-    expect(sol.series.a.itemSize).toEqual(1)
-    expect(sol.series.a.count).toEqual(6)
+    expect(sol.series.a.itemSize).toBe(1)
+    expect(sol.series.a.count).toBe(6)
 })
 
-test('test merge Gocad TS with prop min/max', () => {
+test('merge Gocad TS with prop min/max', () => {
     const t1 = decodeGocadTS(bufferTS11)
     const t2 = decodeGocadTS(bufferTS12)
 
     const sol = merge([...t1, ...t2])
 
     const m = minMax(sol.series.a)
-    expect(m[0]).toEqual(1)
-    expect(m[1]).toEqual(8)
+    expect(m[0]).toBe(1)
+    expect(m[1]).toBe(8)
 })
 
 const bufferTS21 = `GOCAD TSurf 1
@@ -111,14 +111,14 @@ PVRTX 2 3 1 1 8
 TRGL 0 1 2
 END`
 
-test('test merge Gocad TS with different prop names', () => {
+test('merge Gocad TS with different prop names', () => {
     const t1 = decodeGocadTS(bufferTS21)[0]
     const t2 = decodeGocadTS(bufferTS22)[0]
 
     const sol = merge([t1, t2])
 
-    expect(sol.series.positions.count).toEqual(6)
-    expect(sol.series.indices.count).toEqual(2)
+    expect(sol.series.positions.count).toBe(6)
+    expect(sol.series.indices.count).toBe(2)
     expect(sol.series.a).toBeUndefined()
     expect(sol.series.b).toBeUndefined()
 })
@@ -149,14 +149,14 @@ PVRTX 2 3 1 1 8 1 2
 TRGL 0 1 2
 END`
 
-test('test merge Gocad TS with same prop names but different itemSize', () => {
+test('merge Gocad TS with same prop names but different itemSize', () => {
     const t1 = decodeGocadTS(bufferTS31)[0]
     const t2 = decodeGocadTS(bufferTS32)[0]
 
     const sol = merge([t1, t2])
 
-    expect(sol.series.positions.count).toEqual(6)
-    expect(sol.series.indices.count).toEqual(2)
+    expect(sol.series.positions.count).toBe(6)
+    expect(sol.series.indices.count).toBe(2)
     expect(sol.series.a).toBeUndefined()
     expect(sol.series.b).toBeUndefined()
 })
@@ -189,17 +189,17 @@ TRGL 0 1 2
 TRGL 0 2 3
 END`
 
-test('test merge Gocad TS with prop', () => {
+test('merge Gocad TS with prop', () => {
     const t1 = decodeGocadTS(bufferTS41)[0]
     const t2 = decodeGocadTS(bufferTS42)[0]
 
     const sol = merge([t1, t2])
 
-    expect(sol.series.positions.count).toEqual(8)
-    expect(sol.series.indices.count).toEqual(4)
+    expect(sol.series.positions.count).toBe(8)
+    expect(sol.series.indices.count).toBe(4)
     expect(sol.series.a).toBeDefined()
-    expect(sol.series.a.itemSize).toEqual(1)
-    expect(sol.series.a.count).toEqual(8)
+    expect(sol.series.a.itemSize).toBe(1)
+    expect(sol.series.a.count).toBe(8)
 
     console.log(sol.series.positions)
     console.log(sol.series.indices)

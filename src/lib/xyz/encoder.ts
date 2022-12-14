@@ -66,7 +66,9 @@ const getXYZEncodeOptions = (o: XYZEncodeOptions): XYZEncodeOptions => {
         expandAttributes: true,
         userData: undefined,
     }
-    if (o === undefined) return r
+    if (o === undefined) {
+        return r
+    }
     r.saveAttributes = o.saveAttributes !== undefined ? o.saveAttributes : true
     r.saveGeometry = o.saveGeometry !== undefined ? o.saveGeometry : true
     r.delimiter = o.delimiter !== undefined ? o.delimiter : ' '
@@ -93,12 +95,13 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
     const opts = getXYZEncodeOptions(options)
 
     const positions = df.series.positions
-    if (positions === undefined)
+    if (positions === undefined) {
         throw new Error('missing "positions" in dataframe')
+    }
 
     let buffer = encodeUserData(opts.userData)
 
-    let attrs: Array<[string, Serie]> = []
+    const attrs: Array<[string, Serie]> = []
     if (opts.saveAttributes) {
         Object.entries(df.series).forEach(([name, serie]: [string, Serie]) => {
             if (name !== 'positions') {
@@ -153,25 +156,31 @@ const doit = (df: DataFrame, options: XYZEncodeOptions): string => {
         if (opts.saveGeometry) {
             //buffer += `${item.join(opts.delimiter)}` + opts.delimiter
             for (let j = 0; j < item.length; ++j) {
-                if (doFixed)
+                if (doFixed) {
                     buffer += `${item[j].toFixed(opts.fixed)}` + opts.delimiter
-                else buffer += `${toString(item[j])}` + opts.delimiter
+                } else {
+                    buffer += `${toString(item[j])}` + opts.delimiter
+                }
             }
         }
         if (opts.saveAttributes) {
             attrs.forEach(([_, serie]) => {
                 if (serie.itemSize === 1) {
-                    let num = serie.itemAt(i) as number
-                    if (doFixed)
+                    const num = serie.itemAt(i) as number
+                    if (doFixed) {
                         buffer += `${num.toFixed(opts.fixed)}` + opts.delimiter
-                    else buffer += `${toString(num)}` + opts.delimiter
+                    } else {
+                        buffer += `${toString(num)}` + opts.delimiter
+                    }
                 } else {
-                    let num = serie.itemAt(i) as number[]
+                    const num = serie.itemAt(i) as number[]
                     for (let j = 0; j < num.length; ++j) {
-                        if (doFixed)
+                        if (doFixed) {
                             buffer +=
                                 `${num[j].toFixed(opts.fixed)}` + opts.delimiter
-                        else buffer += `${toString(num[j])}` + opts.delimiter
+                        } else {
+                            buffer += `${toString(num[j])}` + opts.delimiter
+                        }
                     }
                 }
                 //buffer += `${toString(serie.itemAt(i))}` + opts.delimiter

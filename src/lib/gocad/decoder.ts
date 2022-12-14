@@ -133,7 +133,7 @@ function loadGocadObject({
     merge: boolean
     repair: boolean
 }): DataFrame[] {
-    let lines = buffer.split('\n')
+    const lines = buffer.split('\n')
     let name = 'no-name'
 
     let attributes: number[][] = []
@@ -146,13 +146,13 @@ function loadGocadObject({
     let positions = []
     let indices = []
 
-    let objects: DataFrame[] = []
+    const objects: DataFrame[] = []
 
     const haveIndices = keyword !== ''
     const SEP = separator
 
     for (let i = 0; i < lines.length; ++i) {
-        let line = trimAll(lines[i])
+        const line = trimAll(lines[i])
         if (line.length === 0 || line.charAt(0) === '#') {
             continue
         }
@@ -164,7 +164,7 @@ function loadGocadObject({
             continue
         }
 
-        let r = line
+        const r = line
             .split(' ')
             .map((s: string) => s.trim())
             .filter((s: string) => s !== '')
@@ -172,7 +172,7 @@ function loadGocadObject({
             continue
         }
 
-        let names = line.split(':')
+        const names = line.split(':')
         if (names.length === 0) {
             continue
         }
@@ -197,7 +197,9 @@ function loadGocadObject({
                 extension,
                 merge,
             })
-            if (object) objects.push(object)
+            if (object) {
+                objects.push(object)
+            }
 
             // Use the same attributes
             attributes = attributes.map((_) => [])
@@ -221,7 +223,9 @@ function loadGocadObject({
                 extension,
                 merge,
             })
-            if (object) objects.push(object)
+            if (object) {
+                objects.push(object)
+            }
 
             name = 'no-name'
             attributes = []
@@ -250,10 +254,11 @@ function loadGocadObject({
             for (let j = 1; j < r.length; ++j) {
                 attrSizes.push(parseInt(r[j]))
             }
-            if (attrSizes.length !== attrNames.length)
+            if (attrSizes.length !== attrNames.length) {
                 throw new Error(
                     `size mismatch between PROPERTIES (${attrNames.length}) and ESIZES (${attrSizes.length})`,
                 )
+            }
             continue
         }
 
@@ -266,7 +271,9 @@ function loadGocadObject({
             if (nbFlatAttributes === -1) {
                 startIndex = parseInt(r[1]) // CHECK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (attrSizes.length === 0) {
-                    for (let i = 0; i < attrNames.length; ++i) attrSizes[i] = 1
+                    for (let i = 0; i < attrNames.length; ++i) {
+                        attrSizes[i] = 1
+                    }
                 }
 
                 nbFlatAttributes = attrSizes.reduce((acc, v) => acc + v, 0)
@@ -296,7 +303,7 @@ function loadGocadObject({
                     indices.push(j)
                 }
             } else if (dimension === 3) {
-                let idx = []
+                const idx = []
                 for (let i = 0; i < dimension; ++i) {
                     const j = parseInt(r[1 + i], 10) - startIndex
                     idx.push(j)
@@ -346,7 +353,9 @@ function loadGocadObject({
         extension,
         merge,
     })
-    if (object) objects.push(object)
+    if (object) {
+        objects.push(object)
+    }
 
     return objects
 }
@@ -381,15 +390,17 @@ function createObject({
     extension: string
     merge: boolean
 }): DataFrame {
-    if (positions.length === 0) return undefined
+    if (positions.length === 0) {
+        return undefined
+    }
 
-    let userData = {
+    const userData = {
         className,
         extension,
         name,
         attributeNames: attrNames,
     }
-    let posSerie = Serie.create({
+    const posSerie = Serie.create({
         array: createTyped<Float32Array>(Float32Array, positions, shared),
         itemSize: 3,
     })

@@ -133,7 +133,9 @@ class ParseOBJ {
                 // smooth shading...
             } else {
                 // Handle null terminated files without exception
-                if (line === '\0') continue
+                if (line === '\0') {
+                    continue
+                }
             }
         }
     }

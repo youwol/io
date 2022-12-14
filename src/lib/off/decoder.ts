@@ -71,7 +71,7 @@ class ParseOFF {
             lineFirstChar = '',
             lineSecondChar = ''
         let lineLength = 0
-        let result = []
+        const result = []
 
         // Faster to just trim left side of the line. Use if available.
         const trimLeft = typeof ''.trimLeft === 'function'
@@ -97,13 +97,15 @@ class ParseOFF {
                 continue
             }
 
-            if (line === '\0') continue
+            if (line === '\0') {
+                continue
+            }
 
             if (line === 'OFF') {
                 isOff = true
             }
 
-            let toks = line
+            const toks = line
                 .split(' ')
                 .map((s: string) => s.trim())
                 .filter((s: string) => s !== '')
