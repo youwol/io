@@ -1,8 +1,7 @@
-const io =require('../../dist/@youwol/io')
-const df =require('@youwol/dataframe')
+const io = require('../../dist/@youwol/io')
+const df = require('@youwol/dataframe')
 
-const bufferTs =
-`GOCAD TSurf 1
+const bufferTs = `GOCAD TSurf 1
 HEADER {
   name:salt
 }
@@ -15,14 +14,14 @@ TRGL 0 1 2
 END`
 
 const ts = io.decodeGocadTS(bufferTs)[0]
-console.log( df.info(ts) )
-console.log( ts.get('positions').count )
-console.log( ts.get('indices').count )
-console.log( ts.get('a').count )
+console.log(df.info(ts))
+console.log(ts.get('positions').count)
+console.log(ts.get('indices').count)
+console.log(ts.get('a').count)
 
-const sol_a = [1,4,9]
+const sol_a = [1, 4, 9]
 const a = ts.get('a')
-a.forEach( (v,i) => console.assert(v === sol_a[i]) )
+a.forEach((v, i) => console.assert(v === sol_a[i]))
 
 const p = ts.get('positions')
-p.forEach( (v,i) => console.log(v) )
+p.forEach((v, i) => console.log(v))
