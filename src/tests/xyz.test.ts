@@ -1,8 +1,7 @@
-import { info } from "@youwol/dataframe"
-import { decodeXYZ, encodeXYZ } from "../lib"
+import { info } from '@youwol/dataframe'
+import { decodeXYZ, encodeXYZ } from '../lib'
 
-const buffer1 =
-`
+const buffer1 = `
 # comment 1 with empty line before and after
 
 # comment 2
@@ -25,17 +24,21 @@ test('test decode simple xyz', () => {
     expect(ts.series.positions.count).toEqual(3)
     expect(ts.series.indices).toBeUndefined()
     expect(ts.series.a.count).toEqual(3)
-    
+
     {
-        const sa = [1,4,9]
+        const sa = [1, 4, 9]
         const a = ts.series.a
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 
     {
-        const sa = [[0,0,0], [1,0,0], [0,1,0]]
+        const sa = [
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+        ]
         const a = ts.series.positions
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 })
 
@@ -57,27 +60,31 @@ test('test decode xyz implicite', () => {
 
     const ts = tss[0]
     //console.log( info(ts) )
-    
+
     expect(ts.series.positions).toBeDefined()
     expect(ts.series.positions.count).toEqual(4)
     expect(ts.series.indices).toBeUndefined()
     expect(ts.series.a.count).toEqual(4)
-    
+
     {
-        const sa = [1,4,9,16]
+        const sa = [1, 4, 9, 16]
         const a = ts.series.a
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 
     {
-        const sa = [[0,0,0], [1,0,0], [0,1,0], [0,1,1]]
+        const sa = [
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 1, 1],
+        ]
         const a = ts.series.positions
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 })
 
-const buffer3 =
-`
+const buffer3 = `
 # comment 1 with empty line before and after
 
 # comment 2
@@ -110,11 +117,15 @@ test('test decode simple xyz with vector attr (collapse)', () => {
     expect(ts.series.E).toBeDefined()
     expect(ts.series.E.count).toEqual(3)
     expect(ts.series.E.itemSize).toEqual(9)
-    
+
     {
-        const sa = [[1,2,3], [4,5,6], [9,10,11]]
+        const sa = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [9, 10, 11],
+        ]
         const U = ts.series.U
-        U.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        U.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 
     console.log(ts)

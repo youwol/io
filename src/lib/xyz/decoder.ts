@@ -1,6 +1,12 @@
-import { append, Serie, createTyped, DataFrame, IArray } from "@youwol/dataframe"
-import { collapse } from "../collapse"
-import { trimAll } from "../utils"
+import {
+    append,
+    Serie,
+    createTyped,
+    DataFrame,
+    IArray,
+} from '@youwol/dataframe'
+import { collapse } from '../collapse'
+import { trimAll } from '../utils'
 
 /**
  * Format in order to know this is a cube:
@@ -23,9 +29,9 @@ import { trimAll } from "../utils"
  */
 export function decodeXYZ(
     buffer: string,
-    {shared=true, merge=true}:{shared?: boolean, merge?: boolean}={}): DataFrame[]
-{
-    const dims      = [0, 0, 0]
+    { shared = true, merge = true }: { shared?: boolean; merge?: boolean } = {},
+): DataFrame[] {
+    const dims = [0, 0, 0]
     let className = 'Pointset'
     const extension = 'xyz'
 
@@ -36,20 +42,20 @@ export function decodeXYZ(
     //  * <li> for a pointset: `{mng: AttributeManager, className: string, min: [0,0,0], max: [0,0,0]}`
     //  * </ul>
     //  */
-    let lines      = buffer.split('\n')
+    let lines = buffer.split('\n')
     let attributes: number[][] = []
-    let attrNames : string[]   = []
+    let attrNames: string[] = []
     //let attrSizes : number[]   = []
-    let positions : number[]   = []  
-    let objects    = []
-    let haveZ      = 1
+    let positions: number[] = []
+    let objects = []
+    let haveZ = 1
 
     const impliciteName = 'ImpliciteCube'
-    
+
     for (let i = 0; i < lines.length; ++i) {
         let line = trimAll(lines[i].trim())
         if (line.length === 0) {
-                continue
+            continue
         }
 
         let r = line.split(' ')
@@ -82,14 +88,14 @@ export function decodeXYZ(
             if (r[1] === 'CLASS') {
                 className = r[4]
                 const object = createObject({
-                    dims, 
-                    positions, 
-                    attributes, 
-                    attrNames, 
+                    dims,
+                    positions,
+                    attributes,
+                    attrNames,
                     className,
                     shared,
                     extension,
-                    merge
+                    merge,
                 })
                 if (object) {
                     objects.push(object)
@@ -97,7 +103,8 @@ export function decodeXYZ(
                 continue
             }
 
-            if (r[1] !== 'x' && r[2] !== 'y') { // comment
+            if (r[1] !== 'x' && r[2] !== 'y') {
+                // comment
                 continue
             }
 
@@ -116,15 +123,15 @@ export function decodeXYZ(
             //     }
             //     continue
             // }
-    
+
             if (r.length > 3 && r[3] === 'z') {
-                start++ ;
-                haveZ = 1 ;
+                start++
+                haveZ = 1
             }
 
             attributes = []
-            attrNames  = []
-            positions  = []
+            attrNames = []
+            positions = []
             for (let j = start; j < r.length; ++j) {
                 attributes.push([])
                 attrNames.push(r[j])
@@ -135,21 +142,21 @@ export function decodeXYZ(
         if (r[0] === 'P') {
             haveZ = 1
             const object = createObject({
-                dims, 
-                positions, 
-                attributes, 
-                attrNames, 
+                dims,
+                positions,
+                attributes,
+                attrNames,
                 className,
                 shared,
                 extension,
-                merge
+                merge,
             })
             if (object) {
                 objects.push(object)
             }
             attributes = []
-            attrNames  = []
-            positions  = []
+            attrNames = []
+            positions = []
 
             for (let j = 1; j < r.length; ++j) {
                 attributes.push([])
@@ -158,32 +165,37 @@ export function decodeXYZ(
             continue
         }
 
-        if (r.length >= (2 + haveZ)) { // min is (x,y)
+        if (r.length >= 2 + haveZ) {
+            // min is (x,y)
             let x = parseFloat(r[0])
             let y = parseFloat(r[1])
             let z = haveZ ? parseFloat(r[2]) : 0
             positions.push(x, y, z)
 
             if (attributes.length !== r.length - (2 + haveZ)) {
-                throw new Error(`Wrong number of attribute for vertex. Should be ${attributes.length} and got ${r.length - (2 + haveZ)}`)
+                throw new Error(
+                    `Wrong number of attribute for vertex. Should be ${
+                        attributes.length
+                    } and got ${r.length - (2 + haveZ)}`,
+                )
             }
-        
+
             for (let j = 0; j < attributes.length; ++j) {
-                attributes[j].push( parseFloat(r[2 + haveZ + j]) )
+                attributes[j].push(parseFloat(r[2 + haveZ + j]))
             }
             continue
         }
     }
-  
+
     const object = createObject({
-        dims, 
-        positions, 
-        attributes, 
-        attrNames, 
+        dims,
+        positions,
+        attributes,
+        attrNames,
         className,
         shared,
         extension,
-        merge
+        merge,
     })
     if (object) {
         objects.push(object)
@@ -192,41 +204,47 @@ export function decodeXYZ(
     return objects
 }
 
-function createObject(
-    {dims, positions, attrNames, attributes, className, shared=true, extension, merge}:
-    {
-        dims : number[],
-        positions : number[],
-        attrNames : string[],
-        attributes: number[][],
-        className: string,
-        shared?: boolean,
-        extension: string,
-        merge: boolean
-    }
-): DataFrame
-{
-    if (positions.length===0) return undefined
-    
+function createObject({
+    dims,
+    positions,
+    attrNames,
+    attributes,
+    className,
+    shared = true,
+    extension,
+    merge,
+}: {
+    dims: number[]
+    positions: number[]
+    attrNames: string[]
+    attributes: number[][]
+    className: string
+    shared?: boolean
+    extension: string
+    merge: boolean
+}): DataFrame {
+    if (positions.length === 0) return undefined
+
     let userData = {
         className,
         extension,
-        attributeNames: attrNames
+        attributeNames: attrNames,
     }
     let posSerie = Serie.create({
         array: createTyped<Float32Array>(Float32Array, positions, shared),
-        itemSize: 3
+        itemSize: 3,
     })
 
-    let df  = (dims[0]===0 && dims[1]===0&&dims[2]===0) 
-        ?   DataFrame.create({
-                series:{ positions: posSerie},
-                userData
-            })
-        :   DataFrame.create({
-            series:{ positions: posSerie},
-            userData: {...userData, ...{dims} }
-        })
+    let df =
+        dims[0] === 0 && dims[1] === 0 && dims[2] === 0
+            ? DataFrame.create({
+                  series: { positions: posSerie },
+                  userData,
+              })
+            : DataFrame.create({
+                  series: { positions: posSerie },
+                  userData: { ...userData, ...{ dims } },
+              })
 
     // const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
     // attrNames.forEach( (name, i) => {
@@ -236,12 +254,19 @@ function createObject(
     // })
 
     if (merge) {
-        const entries = new Map
-        collapse(attrNames, attributes).forEach( attr => {
-            entries.set( attr.name, Serie.create({
-                array: createTyped<Float32Array>(Float32Array, attr.value, shared), 
-                itemSize: attr.itemSize
-            }) )
+        const entries = new Map()
+        collapse(attrNames, attributes).forEach((attr) => {
+            entries.set(
+                attr.name,
+                Serie.create({
+                    array: createTyped<Float32Array>(
+                        Float32Array,
+                        attr.value,
+                        shared,
+                    ),
+                    itemSize: attr.itemSize,
+                }),
+            )
         })
         df = append(df, Object.fromEntries(entries))
 
@@ -251,17 +276,23 @@ function createObject(
         //         itemSize: attr.itemSize
         //     }))
         // })
-    }
-    else {
-        const entries = new Map
-        attrNames.forEach( (name, i) => {
-            entries.set(name, Serie.create({
-                array: createTyped<Float32Array>(Float32Array, attributes[i], shared),
-                itemSize: 1
-            }))
+    } else {
+        const entries = new Map()
+        attrNames.forEach((name, i) => {
+            entries.set(
+                name,
+                Serie.create({
+                    array: createTyped<Float32Array>(
+                        Float32Array,
+                        attributes[i],
+                        shared,
+                    ),
+                    itemSize: 1,
+                }),
+            )
         })
         df = append(df, Object.fromEntries(entries))
-        
+
         // attrNames.forEach( (name, i) => {
         //     df = df.set(name, createSerie({
         //         data: createTyped(Float32Array, attributes[i], shared),

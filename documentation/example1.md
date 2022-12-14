@@ -14,10 +14,10 @@ TRGL 0 1 2
 END`
 
 const objects = decodeGocadTS(buffer) // as DataFrame[]
-objects.forEach( df => {
-    console.log( info(df) )
+objects.forEach((df) => {
+    console.log(info(df))
     console.log('nb nodes     :', df.get('position').count)
     console.log('nb triangles :', df.get('indices').count)
-    console.log('nb attributes:', df.series.length-2)
+    console.log('nb attributes:', df.series.length - 2)
 })
 ```

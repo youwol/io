@@ -1,8 +1,7 @@
-import { info } from "@youwol/dataframe"
-import { decodeGocadPL } from "../lib"
+import { info } from '@youwol/dataframe'
+import { decodeGocadPL } from '../lib'
 
-const bufferPL =
-`GOCAD Pline 1
+const bufferPL = `GOCAD Pline 1
 HEADER {
   name: test
 }
@@ -20,33 +19,39 @@ test('test decode Gocad TS', () => {
     expect(tss.length).toEqual(1) // 1 line
 
     const ts = tss[0]
-    console.log( ts )
+    console.log(ts)
 
     expect(ts.series.positions).toBeDefined()
     expect(ts.series.positions.count).toEqual(3)
     expect(ts.series.indices.count).toEqual(2)
     expect(ts.series.a.count).toEqual(3)
-    
+
     {
-        const sa = [1,4,9]
+        const sa = [1, 4, 9]
         const a = ts.series.a
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 
     {
-        const sa = [[0,0,0], [1,0,0], [0,1,0]]
+        const sa = [
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+        ]
         const a = ts.series.positions
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
     {
-        const sa = [[0,1], [1,2]]
+        const sa = [
+            [0, 1],
+            [1, 2],
+        ]
         const a = ts.series.indices
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 })
 
-const bufferPL2 =
-`GOCAD Pline 1
+const bufferPL2 = `GOCAD Pline 1
 HEADER {
   name: test
 }
@@ -76,8 +81,7 @@ test('test decode Gocad TS x2', () => {
     expect(tss.length).toEqual(2) // 2 different lines
 })
 
-const bufferPL3 =
-`GOCAD PLine 1
+const bufferPL3 = `GOCAD PLine 1
 HEADER {
 name:dykes
 }
@@ -139,11 +143,10 @@ test('test decode Gocad TS components', () => {
 
     const nv = [5, 7, 9, 4]
     const ns = [4, 6, 8, 3]
-    
-    tss.forEach( (ts, i) => {
+
+    tss.forEach((ts, i) => {
         expect(ts.series.positions).toBeDefined()
         expect(ts.series.positions.count).toEqual(nv[i])
         expect(ts.series.indices.count).toEqual(ns[i])
     })
-    
 })

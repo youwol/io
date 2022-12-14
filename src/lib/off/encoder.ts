@@ -1,5 +1,5 @@
-import { Serie, DataFrame } from "@youwol/dataframe"
-import { encodeUserData } from "../utils"
+import { Serie, DataFrame } from '@youwol/dataframe'
+import { encodeUserData } from '../utils'
 
 /**
  * @category Encoder

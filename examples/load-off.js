@@ -1,5 +1,5 @@
 const loaders = require('../dist/@youwol/io')
-const fs      = require('fs')
+const fs = require('fs')
 
 const filename = '../models/object.off'
 
@@ -11,5 +11,5 @@ if (filter) {
     console.log(state[0].series.positions)
     console.log(state[0].series.indices)
 
-    state[0].series.indices.forEach( v => console.log(v))
+    state[0].series.indices.forEach((v) => console.log(v))
 }

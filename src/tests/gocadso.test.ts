@@ -1,8 +1,7 @@
-import { info } from "@youwol/dataframe"
-import { decodeGocadSO } from "../lib"
+import { info } from '@youwol/dataframe'
+import { decodeGocadSO } from '../lib'
 
-const bufferSO =
-`GOCAD TVol 1
+const bufferSO = `GOCAD TVol 1
 HEADER {
   name: test
 }
@@ -26,21 +25,26 @@ test('test decode Gocad TS', () => {
     expect(ts.series.positions.count).toEqual(4)
     expect(ts.series.indices.count).toEqual(1)
     expect(ts.series.a.count).toEqual(4)
-    
+
     {
-        const sa = [1,4,9,16]
+        const sa = [1, 4, 9, 16]
         const a = ts.series.a
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 
     {
-        const sa = [[0,0,0], [1,0,0], [0,1,0], [0,1,-1]]
+        const sa = [
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 1, -1],
+        ]
         const a = ts.series.positions
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
     {
-        const sa = [[0,1,2,3]]
+        const sa = [[0, 1, 2, 3]]
         const a = ts.series.indices
-        a.forEach( (v,i) => expect(v).toEqual(sa[i]) )
+        a.forEach((v, i) => expect(v).toEqual(sa[i]))
     }
 })

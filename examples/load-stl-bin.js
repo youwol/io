@@ -1,5 +1,5 @@
 const loaders = require('../dist/@youwol/io')
-const fs      = require('fs')
+const fs = require('fs')
 
 const filename = '../models/object-bin.stl'
 
