@@ -1,7 +1,7 @@
 // const df   = require('@youwol/dataframe')
 // const geom = require('@youwol/geometry')
 const loaders = require('../dist/@youwol/io')
-const fs      = require('fs')
+const fs = require('fs')
 
 const filename = '../models/object.gcd'
 
@@ -12,12 +12,6 @@ if (filter) {
     const state = filter.decode(text)
     console.log(state)
 }
-
-
-
-
-
-
 
 // const data = fs.readFileSync('./s1.gcd', 'utf8')
 // const dfs = io.decodeGocadTS( data )

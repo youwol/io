@@ -15,23 +15,23 @@ export type DxfReturnType = [number, number, number, number][]
  * 6.425910
  * 999 y1
  * 20
- * 66.390800 
+ * 66.390800
  * 999 x2
  * 11
- * 7.497000 
+ * 7.497000
  * 999 y2
  * 21
- * 67.080556 
+ * 67.080556
  * 0
  * ...
  * ```
  * @returns A serie with itemSize=2 (i.e., 2D points) and such that 2 consecutive points form a segments.
  * Therefore, the number of segments in the serie is simply the `serie.count/4``
- * 
+ *
  * @category Decoder
  */
 export function decoderDXF(buffer: string): Serie {
-    let lines = buffer.split('\n')
+    const lines = buffer.split('\n')
 
     const segments: Array<number> = []
 
@@ -43,7 +43,7 @@ export function decoderDXF(buffer: string): Serie {
             }
             const line = lines[i++]
             if (line.length !== 0) {
-                let r = line.split(' ')
+                const r = line.split(' ')
                 if (r.length !== 0) {
                     return r
                 }
@@ -52,12 +52,14 @@ export function decoderDXF(buffer: string): Serie {
     }
 
     while (true) {
-        let r = nextLine()
+        const r = nextLine()
         if (r === undefined) {
             break
         }
         if (r[0] === 'LINE') {
-            nextLine(); nextLine(); nextLine()
+            nextLine()
+            nextLine()
+            nextLine()
             const x1 = parseFloat(nextLine()[0])
             nextLine()
             const y1 = parseFloat(nextLine()[0])
@@ -69,7 +71,12 @@ export function decoderDXF(buffer: string): Serie {
         }
     }
 
-    return Serie.create({array: segments, itemSize: 2})
+    return Serie.create({ array: segments, itemSize: 2 })
 }
 
-const trimAll = (s: string) => s.replace(/\s+/g, ' ').replace(/^\s+|\s+$/, '').replace('\t', ' ').trimEnd()
+const trimAll = (s: string) =>
+    s
+        .replace(/\s+/g, ' ')
+        .replace(/^\s+|\s+$/, '')
+        .replace('\t', ' ')
+        .trimEnd()

@@ -1,5 +1,5 @@
-const io     = require('../dist/@youwol/io')
-const fs     = require('fs')
+const io = require('../dist/@youwol/io')
+const fs = require('fs')
 
 // const names = [
 //     '/data/arch/galapagos-all/model2/dikes_georef/line.pl/Alcedo_Concentric_dikes_georef_good.pl',
@@ -25,17 +25,18 @@ const fs     = require('fs')
 // })
 // fs.writeFileSync('/Users/fmaerten/tmp/galapagos/all-dykes.pl', io.encodeGocadPL(allLines), 'utf8', err => {})
 
-
-const filename = '/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700.ts'
-const surfaces = io.decodeGocadTS( fs.readFileSync(filename, 'utf8') )
+const filename =
+    '/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700.ts'
+const surfaces = io.decodeGocadTS(fs.readFileSync(filename, 'utf8'))
 const surface = io.merge(surfaces)
 console.log(surface)
 
-
-fs.writeFileSync('/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700-merged.ts', io.encodeGocadTS(surface), 'utf8', err => {})
-
-
-
+fs.writeFileSync(
+    '/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700-merged.ts',
+    io.encodeGocadTS(surface),
+    'utf8',
+    (err) => {},
+)
 
 // const map = new Map()
 // surfaces.forEach( surface => {
