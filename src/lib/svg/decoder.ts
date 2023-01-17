@@ -1,8 +1,8 @@
-import { Serie } from '@youwol/dataframe'
+import { DataFrame } from '@youwol/dataframe'
 
 /**
  * @category Decoder
  */
-export function decoderSVG(buffer: string): Serie {
-    throw new Error('TODO')
+export function decoderSVG(buffer: string): DataFrame[] {
+    throw new Error('TODO ' + buffer)
 }

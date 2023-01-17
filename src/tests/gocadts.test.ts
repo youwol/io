@@ -202,6 +202,7 @@ test('3 decode Gocad TS', () => {
     })
 })
 
+/* eslint jest/no-conditional-expect: off -- don't want that */
 test('decode Gocad Galapagos with many stresses and displs', () => {
     const dfs = decodeGocadTS(dataGala)
 

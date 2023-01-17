@@ -161,6 +161,7 @@ class ParseOBJ {
 
 // ----------------------------------------------------------
 
+/*eslint no-useless-escape: off -- not sure regex will work if so, so disable eslint errors*/
 const regexp = {
     vertex_pattern:
         /^v\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)/,

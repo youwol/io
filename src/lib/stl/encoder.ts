@@ -8,6 +8,6 @@ export function encodeSTL(
     { binary = false }: { binary?: boolean } = {},
 ): string {
     const buffer = ''
-    console.warn('TODO: STL encoder for meshes')
+    console.warn('TODO: STL encoder for meshes', binary)
     return buffer
 }

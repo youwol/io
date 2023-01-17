@@ -34,7 +34,7 @@ export type XYZEncodeOptions = {
     /**
      * Any user data (undefined by default)
      */
-    userData: { [key: string]: any } // undefined
+    userData: { [key: string]: object } // undefined
 }
 
 /**

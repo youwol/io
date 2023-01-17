@@ -12,7 +12,7 @@ export function trimAll(s: string) {
 /**
  * @category Utils
  */
-export function encodeUserData(userData: { [key: string]: any }): string {
+export function encodeUserData(userData: { [key: string]: object }): string {
     let s = ''
     if (userData !== undefined) {
         s += '\n# BEGIN USERDATA\n'

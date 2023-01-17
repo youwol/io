@@ -35,7 +35,7 @@ fs.writeFileSync(
     '/Users/fmaerten/data/arch/galapagos-all/model2/simulations-grid-stress-6700-merged.ts',
     io.encodeGocadTS(surface),
     'utf8',
-    (err) => {},
+    () => {},
 )
 
 // const map = new Map()

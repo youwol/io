@@ -68,16 +68,16 @@ class ParseOFF {
 
         const lines = buffer.split('\n')
         let line = '',
-            lineFirstChar = '',
-            lineSecondChar = ''
+            lineFirstChar = ''
         let lineLength = 0
-        const result = []
 
         // Faster to just trim left side of the line. Use if available.
         const trimLeft = typeof ''.trimLeft === 'function'
 
         let isOff = false
         let readNbs = false
+
+        /* eslint unused-imports/no-unused-vars: off -- what the f*** */
         let nbV = 0
         let nbF = 0
 

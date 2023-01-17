@@ -29,10 +29,8 @@ export function encodeSVG(
         const is3D = serie.itemSize === 3
         if (serie.count % 2 !== 0) {
             throw new Error(
-                `Wrong number of ${
-                    is3D ? '3D' : '2D'
-                } points in the Serie. Have ${
-                    serie.count
+                `Wrong number of ${is3D ? '3D' : '2D'
+                } points in the Serie. Have ${serie.count
                 } and is not divisible by 2`,
             )
         }
@@ -45,7 +43,7 @@ export function encodeSVG(
 
         for (let i = 2; i < serie.count; i += 2) {
             const p1 = serie.itemAt(i) //as [number, number]
-            const p2 = serie.itemAt(i + 1) //as [number, number]
+            // const p2 = serie.itemAt(i + 1) //as [number, number]
             buffer += `L ${point(p1)} `
         }
 

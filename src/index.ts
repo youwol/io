@@ -1,3 +1,4 @@
+import { DataFrame } from '@youwol/dataframe'
 import {
     decodeGocadPL,
     decodeGocadSO,
@@ -24,8 +25,8 @@ import {
 export * from './lib'
 
 export type Entry = {
-    encode: Function
-    decode: Function
+    encode: (dataframe: DataFrame, options: object) => string
+    decode: (bugger: string, options: { shared: boolean, merge: boolean, repair: boolean }) => DataFrame[]
     vendor?: string
     name?: string
 }

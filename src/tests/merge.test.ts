@@ -63,7 +63,7 @@ PVRTX 2 3 1 1 8
 TRGL 0 1 2
 END`
 
-test('merge Gocad TS with prop', () => {
+test('merge Gocad TS with prop (1)', () => {
     const t1 = decodeGocadTS(bufferTS11)[0]
     const t2 = decodeGocadTS(bufferTS12)[0]
 
@@ -189,7 +189,7 @@ TRGL 0 1 2
 TRGL 0 2 3
 END`
 
-test('merge Gocad TS with prop', () => {
+test('merge Gocad TS with prop (2)', () => {
     const t1 = decodeGocadTS(bufferTS41)[0]
     const t2 = decodeGocadTS(bufferTS42)[0]
 

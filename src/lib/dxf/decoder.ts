@@ -1,4 +1,4 @@
-import { Serie } from '@youwol/dataframe'
+import { DataFrame, Serie } from '@youwol/dataframe'
 
 export type DxfReturnType = [number, number, number, number][]
 
@@ -30,14 +30,16 @@ export type DxfReturnType = [number, number, number, number][]
  *
  * @category Decoder
  */
-export function decoderDXF(buffer: string): Serie {
+export function decoderDXF(buffer: string): DataFrame[] {
     const lines = buffer.split('\n')
 
     const segments: Array<number> = []
 
     let i = 0
+    const condition = true
+
     const nextLine = () => {
-        while (true) {
+        while (condition) {
             if (i >= lines.length) {
                 return undefined
             }
@@ -51,7 +53,7 @@ export function decoderDXF(buffer: string): Serie {
         }
     }
 
-    while (true) {
+    while (condition) {
         const r = nextLine()
         if (r === undefined) {
             break
@@ -71,12 +73,19 @@ export function decoderDXF(buffer: string): Serie {
         }
     }
 
-    return Serie.create({ array: segments, itemSize: 2 })
+    const dataframe = DataFrame.create({
+        series: {
+            positions: Serie.create({ array: segments, itemSize: 2 })
+        }
+    })
+
+    // return Serie.create({ array: segments, itemSize: 2 })
+    return [dataframe]
 }
 
-const trimAll = (s: string) =>
-    s
-        .replace(/\s+/g, ' ')
-        .replace(/^\s+|\s+$/, '')
-        .replace('\t', ' ')
-        .trimEnd()
+// const trimAll = (s: string) =>
+//     s
+//         .replace(/\s+/g, ' ')
+//         .replace(/^\s+|\s+$/, '')
+//         .replace('\t', ' ')
+//         .trimEnd()
