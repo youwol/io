@@ -45,7 +45,7 @@ export function encodeSVG(
 
         for (let i = 2; i < serie.count; i += 2) {
             const p1 = serie.itemAt(i) //as [number, number]
-            const p2 = serie.itemAt(i + 1) //as [number, number]
+            // const p2 = serie.itemAt(i + 1) //as [number, number]
             buffer += `L ${point(p1)} `
         }
 

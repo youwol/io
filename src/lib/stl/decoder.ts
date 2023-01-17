@@ -134,12 +134,13 @@ function parseASCII(data: string, shared: boolean) {
         'g',
     )
 
+    /* eslint unused-imports/no-unused-vars: off -- what the f*** */
     let faceCounter = 0
     let startVertex = 0
     let endVertex = 0
     const vertices = []
     const indices = []
-    let result: any
+    let result: object = undefined
 
     let faceID = 0
 
@@ -178,7 +179,7 @@ function parseASCII(data: string, shared: boolean) {
     }
 }
 
-function isBinary(data: any) {
+function isBinary(data: ArrayBufferLike) {
     const reader = new DataView(data)
     const face_size = (32 / 8) * 3 + (32 / 8) * 3 * 3 + 16 / 8
     const n_faces = reader.getUint32(80, littleEndian)

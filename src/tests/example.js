@@ -1,3 +1,4 @@
+/* eslint no-undef: off -- for node*/
 const io = require('../../dist/@youwol/io')
 const df = require('@youwol/dataframe')
 
@@ -24,4 +25,4 @@ const a = ts.get('a')
 a.forEach((v, i) => console.assert(v === sol_a[i]))
 
 const p = ts.get('positions')
-p.forEach((v, i) => console.log(v))
+p.forEach((v) => console.log(v))

@@ -9,7 +9,7 @@ export type GocadEncodeOptions = {
     saveTopology: boolean // true
     saveGeometry: boolean // true
     expandAttributes: boolean // false
-    userData: { [key: string]: any } // undefined
+    userData: { [key: string]: object } // undefined
 }
 
 /**
@@ -150,7 +150,6 @@ const toString = (n: number | number[]) => (Array.isArray(n) ? n.join(' ') : n)
 // Only one object right now
 function encodeGocadObject({
     header,
-    combelSize,
     combelName,
     df,
     options,
@@ -209,6 +208,7 @@ Should be equal to 'positions' count (${positions.count}).\n`
                 buffer += '\n'
             } else {
                 buffer += 'PROPERTIES '
+                /* eslint unused-imports/no-unused-vars: off -- what the f*** */
                 let n = 0
                 attrs.forEach(([name, serie]) => {
                     if (serie.itemSize === 1) {

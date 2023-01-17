@@ -44,7 +44,7 @@ export function decodeXYZ(
     const objects = []
     let haveZ = 1
 
-    const impliciteName = 'ImpliciteCube'
+    // const impliciteName = 'ImpliciteCube'
 
     for (let i = 0; i < lines.length; ++i) {
         const line = trimAll(lines[i].trim())
