@@ -189,7 +189,7 @@ Should be equal to 'positions' count (${positions.count}).\n`
                     if (serie.count === indices.count) {
                         throw new Error(
                             msg +
-                            'Did you forget to export at nodes instead of triangles?\n',
+                                'Did you forget to export at nodes instead of triangles?\n',
                         )
                     } else {
                         throw new Error(msg)

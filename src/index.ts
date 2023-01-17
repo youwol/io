@@ -26,7 +26,10 @@ export * from './lib'
 
 export type Entry = {
     encode: (dataframe: DataFrame, options: object) => string
-    decode: (bugger: string, options: { shared: boolean, merge: boolean, repair: boolean }) => DataFrame[]
+    decode: (
+        bugger: string,
+        options: { shared: boolean; merge: boolean; repair: boolean },
+    ) => DataFrame[]
     vendor?: string
     name?: string
 }

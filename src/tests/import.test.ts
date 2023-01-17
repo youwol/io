@@ -27,5 +27,4 @@ test('import test', () => {
 
     console.log(surface.series.positions)
     console.log(surface.series.indices)
-
 })

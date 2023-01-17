@@ -76,7 +76,7 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
     if (dataframes[0].series.indices !== undefined) {
         const faces: number[] = []
         let startIndex = 0
-        dataframes.forEach(dataframe => {
+        dataframes.forEach((dataframe) => {
             const triangles = dataframe.series.indices
             if (triangles === undefined) {
                 throw new Error('objects in dataframes are in different types')
@@ -97,7 +97,7 @@ export const merge = (dataframes: DataFrame[]): DataFrame => {
 
 function gatherSeries(dfs: DataFrame[], name: string): Serie[] {
     const series: Serie[] = []
-    dfs.forEach(df => {
+    dfs.forEach((df) => {
         const s = df.series[name]
         if (s === undefined) {
             return undefined

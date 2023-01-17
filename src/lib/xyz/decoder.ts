@@ -168,7 +168,8 @@ export function decodeXYZ(
 
             if (attributes.length !== r.length - (2 + haveZ)) {
                 throw new Error(
-                    `Wrong number of attribute for vertex. Should be ${attributes.length
+                    `Wrong number of attribute for vertex. Should be ${
+                        attributes.length
                     } and got ${r.length - (2 + haveZ)}`,
                 )
             }
@@ -233,13 +234,13 @@ function createObject({
     let df =
         dims[0] === 0 && dims[1] === 0 && dims[2] === 0
             ? DataFrame.create({
-                series: { positions: posSerie },
-                userData,
-            })
+                  series: { positions: posSerie },
+                  userData,
+              })
             : DataFrame.create({
-                series: { positions: posSerie },
-                userData: { ...userData, ...{ dims } },
-            })
+                  series: { positions: posSerie },
+                  userData: { ...userData, ...{ dims } },
+              })
 
     // const arrayMax = (a: IArray) => a.reduce( (acc,cur) => cur>acc?cur:acc, 0)
     // attrNames.forEach( (name, i) => {

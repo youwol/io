@@ -75,8 +75,8 @@ export function decoderDXF(buffer: string): DataFrame[] {
 
     const dataframe = DataFrame.create({
         series: {
-            positions: Serie.create({ array: segments, itemSize: 2 })
-        }
+            positions: Serie.create({ array: segments, itemSize: 2 }),
+        },
     })
 
     // return Serie.create({ array: segments, itemSize: 2 })
