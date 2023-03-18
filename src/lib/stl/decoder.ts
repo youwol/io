@@ -5,7 +5,7 @@ import { createTyped, DataFrame, Serie } from '@youwol/dataframe'
 /**
  * Decode STL files either in ASCII or in BINARY format.
  * When usnig node.js, you should be carreful of how you read the data before
- * calling [[decodeSTL]].
+ * calling {@link decodeSTL}.
  *
  * For example, for **ASCII** file, you should use:
  * ```js
